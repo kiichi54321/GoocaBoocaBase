@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "ホーム ページ";
+}
+
+<h2>@ViewBag.Message</h2>
+<p>
+    ASP.NET MVC の詳細については、<a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a> を参照してください。
+</p>
+<p>@Html.ActionLink("ViewImages", "ViewImages")</p>
+<p>@Html.ActionLink("ViewAnswerData", "ViewAnswerData")</p>
+<p>
+ @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
+ {
+     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", "cutomo2012") <input type="submit" value="送信" />
+     
+ }
+</p>

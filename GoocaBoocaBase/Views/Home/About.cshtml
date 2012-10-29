@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "このサイトについて";
+}
+@using GoocaBoocaBase.Helpers
+
+
+<script  type="text/javascript">
+    var mouseOnFlag = false;
+
+    function mouseOnFunc(event) 
+    {
+
+    }
+</script>
+<h2>
+    バージョン情報</h2>
+<p>
+    コンテンツをここに入力します。
+</p>
+<table>
+    <tr>
+    @for (int i = 0; i < 5; i++)
+    {
+        <td>
+        <img src="@Url.Action("Download", "Image", new { id = i.ToString() })" alt="@i" id="img_(@i)" onmousedown="mouseOnFunc" />
+        </td>        
+    }
+    </tr>
+</table>

@@ -1,0 +1,25 @@
+﻿<QuestionCollection
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="clr-namespace:GoocaBoocaDataModels;assembly=GoocaBoocaDataModel"
+>
+    <Question  QuestionName="肉食？草食？" QuestionText="自分自身のことを肉食だと思いますか？草食だと思いますか？" QuestionType ="Choice" >
+        <Question.QuestionChoices>
+            <QuestionChoice QuestionChoiceText="肉食"></QuestionChoice>
+            <QuestionChoice QuestionChoiceText="草食"></QuestionChoice>
+        </Question.QuestionChoices>        
+    </Question>
+    <Question  QuestionName="ぶりっこを見抜く力" QuestionText="自分自身、ぶりっ子を見抜けると思いますか？思いませんか？" QuestionType ="Choice" >
+        <Question.QuestionChoices>
+            <QuestionChoice QuestionChoiceText="思う"></QuestionChoice>
+            <QuestionChoice QuestionChoiceText="思わない"></QuestionChoice>
+        </Question.QuestionChoices>
+    </Question>
+    <Question  QuestionName="性別" QuestionText="最後に性別を教えて下さい。" QuestionType ="Choice" >
+        <Question.QuestionChoices>
+            <QuestionChoice QuestionChoiceText="男性"></QuestionChoice>
+            <QuestionChoice QuestionChoiceText="女性"></QuestionChoice>
+        </Question.QuestionChoices>
+    </Question>
+    <Question  QuestionName="フリーアンサー" QuestionText="フリーアンサー"  QuestionType="FreeText">
+    </Question>    
+</QuestionCollection>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "SimpleQuestion";
+}
+@model IEnumerable<GoocaBoocaDataModels.Question>
+@using GoocaBoocaBase.Helpers
+<h2>
+    LastQuestion</h2>
+@using (@Html.BeginForm("SimpleLastQuestion", "Answer", FormMethod.Post))
+{
+    @Html.Display(Model.Count().ToString())
+foreach (var item in Model)
+{
+    <h4>@Html.DisplayFor(m => item.QuestionText)</h4>
+       
+   if (item.QuestionType == GoocaBoocaDataModels.QuestionType.FreeText.ToString())
+   {
+    @Html.TextArea("f_" + item.QuestionId)
+   }
+   if (item.QuestionType == GoocaBoocaDataModels.QuestionType.Choice.ToString())
+   {
+
+       foreach (var item2 in item.QuestionChoices)
+       {
+    <li>
+        @Html.RadioButton("q_" + item.QuestionId, item2.QuestionChoiceId) @Html.DisplayFor(m => item2.QuestionChoiceText)
+    </li>
+       }
+
+   }
+
+}
+    <input type="hidden" name="research_id" value="@ViewBag.research_id"/>
+    <input type="hidden" name="uid" value="@ViewBag.uid"/>
+    <p>
+        <input type="submit" value="送信" />
+    </p>
+}
+<p>
+    おわり</p>

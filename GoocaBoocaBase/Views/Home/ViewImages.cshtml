@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<GoocaBoocaDataModels.Item>
+@{
+    ViewBag.Title = "ViewImages";
+}
+@using GoocaBoocaBase.Helpers
+
+<h2>ViewImages</h2>
+<table>
+@foreach (var item in Model) {  
+  <tr>
+    <td>
+      @Html.DisplayFor(modelItem => item.ItemId)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.ItemName)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.Reg_Date)
+    </td>
+    <td>
+    @Html.Image("", @Url.Action("ItemDownload", "Image", new { id = item.ItemId.ToString() }), item.ItemId.ToString())
+    </td>
+    <td>
+    </td>
+  </tr>
+}
+</table>
+

@@ -1,0 +1,20 @@
+﻿<Window x:Class="GoocaBoocaInputDataForm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="670">
+    <Grid>
+        <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="0,88,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
+        <StackPanel Height="82" HorizontalAlignment="Left" Name="stackPanel2" VerticalAlignment="Top" Width="498">
+            <StackPanel Height="37" Name="stackPanel1" Width="487" Orientation="Horizontal">
+                <TextBlock Height="23" Name="textBlock1" Text="画像ファイル対応表" />
+                <TextBox Height="24" Name="textBox1" Width="261" />
+                <Button Content="Button" Height="23" Name="button2" Width="75" Click="button2_Click" />
+            </StackPanel>
+            <StackPanel Height="37"  Width="487" Orientation="Horizontal">
+                <TextBlock Height="23"  Text="質問データ" Width="109" />
+                <TextBox Height="24" Name="textBox2" Width="261" />
+                <Button Content="Button" Height="23" Name="button3" Width="75" Click="button3_Click" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

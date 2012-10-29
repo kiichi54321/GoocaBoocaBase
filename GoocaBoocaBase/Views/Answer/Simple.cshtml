@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Simple";
+}
+@using GoocaBoocaBase.Helpers
+
+<p>回答数： @ViewBag.answerCount</p>
+@Html.Image("", @Url.Action("ItemDownload", "Image", new { id = ViewBag.item_id.ToString() }),"MainImage")
+<div>
+@Html.ActionLink("Good", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 1 })
+@Html.ActionLink("Bad", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 2 })
+</div>
+<p> @ViewBag.Message</p>
+
+
