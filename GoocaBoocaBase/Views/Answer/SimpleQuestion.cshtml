@@ -3,37 +3,54 @@
 }
 @model IEnumerable<GoocaBoocaDataModels.Question>
 @using GoocaBoocaBase.Helpers
-<h2>
-    LastQuestion</h2>
-@using (@Html.BeginForm("SimpleLastQuestion", "Answer", FormMethod.Post))
+<script type="text/javascript">
+    $.validator.setDefaults({
+        submitHandler: function () {
+            alert("submitted!");
+        }
+    });
+
+    $.metadata.setType("attr", "validate");
+
+
+    $(document).ready(function () {
+        $("#form1").validate();
+
+    });
+</script>
+<h2>LastQuestion</h2>
+
+<div class="error">@ViewBag.ErrMessage</div>
+@using (Html.BeginForm("SimpleQuestion", "Answer", FormMethod.Post, new { id = "form1" ,@class="cmxform"}))
 {
-    @Html.Display(Model.Count().ToString())
-foreach (var item in Model)
-{
-    <h4>@Html.DisplayFor(m => item.QuestionText)</h4>
-       
-   if (item.QuestionType == GoocaBoocaDataModels.QuestionType.FreeText.ToString())
-   {
-    @Html.TextArea("f_" + item.QuestionId)
-   }
-   if (item.QuestionType == GoocaBoocaDataModels.QuestionType.Choice.ToString())
-   {
+  
+    <fieldset>
+        @foreach (var item in Model)
+        { 
+            <legend>@Html.DisplayFor(m => item.QuestionText)</legend>
+            <fieldset>
+                @if (item.QuestionType == GoocaBoocaDataModels.QuestionType.FreeText.ToString())
+                {
+                    @Html.TextArea("f_" + item.QuestionId)
+                }
+                @if (item.QuestionType == GoocaBoocaDataModels.QuestionType.Choice.ToString())
+                {
+                    foreach (var item2 in item.QuestionChoices)
+                    {
+                        
+                   <ul>
+                        @Html.RadioButton("q_" + item.QuestionId,"a_"+ item2.QuestionChoiceId, new { validate = "required:true" }) @Html.Label("a_" + item2.QuestionChoiceId, item2.QuestionChoiceText)
+                       </ul>         
+                    }
 
-       foreach (var item2 in item.QuestionChoices)
-       {
-    <li>
-        @Html.RadioButton("q_" + item.QuestionId, item2.QuestionChoiceId) @Html.DisplayFor(m => item2.QuestionChoiceText)
-    </li>
-       }
-
-   }
-
-}
+                }
+            </fieldset>
+        }
+    </fieldset>
     <input type="hidden" name="research_id" value="@ViewBag.research_id"/>
     <input type="hidden" name="uid" value="@ViewBag.uid"/>
+    <input type="hidden" name="flag" value="flag"/>
     <p>
-        <input type="submit" value="送信" />
+        <input type="submit" class="submit" value="送信" />
     </p>
 }
-<p>
-    おわり</p>

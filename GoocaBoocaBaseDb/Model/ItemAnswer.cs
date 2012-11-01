@@ -17,7 +17,23 @@ namespace GoocaBoocaDataModels
         public int Group { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
     }
+
+    public class ItemCompareAnswer
+    {
+        public int ItemCompareAnswerId { get; set; }
+        public virtual User User { get; set; }
+        public virtual Research Research { get; set; }
+        public virtual Item ItemGood { get; set; }
+        public virtual Item ItemBad { get; set; }
+        public string PairKey { get; set; }
+        public DateTime Reg_Date { get; set; }
+        public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
+
+    }
+
 
     public class ItemAnswerChoice
     {
@@ -25,6 +41,7 @@ namespace GoocaBoocaDataModels
         public virtual Research Research { get; set; }
         public string AnswerString { get; set; }
         public virtual Image Image { get; set; }
+        public string Tag { get; set; }
     }
 
 

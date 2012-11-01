@@ -11,10 +11,10 @@ namespace GoocaBoocaBase.Helpers
     {
         public static MvcHtmlString Image(this HtmlHelper helper, string id, string url, string alternateText)
         {
-            return Image(helper, id, url, alternateText, null);
+            return Image(helper, id, url, alternateText,string.Empty, null);
         }
 
-        public static MvcHtmlString Image(this HtmlHelper helper, string id, string url, string alternateText, object htmlAttributes)
+        public static MvcHtmlString Image(this HtmlHelper helper, string id, string url, string alternateText, string className,object htmlAttributes)
         {
             // Create tag builder
             var builder = new TagBuilder("img");
@@ -25,6 +25,7 @@ namespace GoocaBoocaBase.Helpers
             // Add attributes
             builder.MergeAttribute("src", url);
             builder.MergeAttribute("alt", alternateText);
+            builder.MergeAttribute("class", className);
             builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             // Render tag

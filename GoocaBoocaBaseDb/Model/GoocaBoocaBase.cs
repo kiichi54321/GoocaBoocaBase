@@ -29,6 +29,7 @@ namespace GoocaBoocaDataModels
         public DbSet<Image> Images { get; set; }
         public DbSet<UserAnswerCompleted> UserAnswerCompleted { get; set; }
         public DbSet<FreeAnswer> FreeAnsweres { get; set; }
+        public DbSet<ItemCompareAnswer> ItemCompareAnsweres { get; set; }
         //    public DbSet<GenderType> GenderType { get; set; }
         //    public DbSet<QuestionType> QuestionType { get; set; }
 
@@ -75,7 +76,7 @@ namespace GoocaBoocaDataModels
             int r, i, a;
             Nullable<int> u = Tool.GetUserId(user, ip);
             var research = GetResearch(research_str);
-            if (research !=null && int.TryParse(item, out i) && int.TryParse(answer, out a) && u.HasValue == true)
+            if (research != null && int.TryParse(item, out i) && int.TryParse(answer, out a) && u.HasValue == true)
             {
                 InsertItemAnswer(research.ResearchId, i, u.Value, a);
             }
@@ -184,6 +185,103 @@ namespace GoocaBoocaDataModels
             public string Message { get; set; }
         }
 
+        public struct ImageCompareStruct
+        {
+            public int ImageAId { get; set; }
+            public int ImageBId { get; set; }
+            public int AnswerCount { get; set; }
+            public bool Success { get; set; }
+            public bool Completed { get; set; }
+            public string Message { get; set; }
+        }
+
+        public ImageCompareStruct GetNextCompareImage(string research_str, string uid, string ip)
+        {
+            var userid = Tool.GetUserId(uid, ip);
+            var research = GetResearch(research_str);
+
+            if (research != null && userid.HasValue == true)
+            {
+                var itemCompareAnsweres = this.ItemCompareAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == userid.Value);
+                if (itemCompareAnsweres.Count() < research.AnswerCount)
+                {
+                    List<string> list = new List<string>();
+
+                    var items = this.Items.Where(n => n.Resarch.ResearchId == research.ResearchId).OrderBy(n => n.ItemId);
+
+                    int i = 1;
+                    foreach (var item in items.Take(items.Count() - 1))
+                    {
+                        foreach (var item2 in items.Skip(i))
+                        {
+                            if (item.Category.ItemCategoryId != item2.Category.ItemCategoryId)
+                            {
+                                list.Add(item.ItemId.ToString() + "_" + item2.ItemId.ToString());
+                            }
+                        }
+                        i++;
+                    }
+
+                    var answerKey = itemCompareAnsweres.Select(n => n.PairKey).ToList<string>();
+                    list = new List<string>(list.Except(answerKey));
+                    var key = list.OrderBy(n => Guid.NewGuid()).FirstOrDefault();
+
+                    if (key != null)
+                    {
+                        var keys = key.Split('_').OrderBy(n => Guid.NewGuid()).ToArray();
+                        return new ImageCompareStruct() { ImageAId = int.Parse(keys.First()), ImageBId = int.Parse(keys.Last()), Success = true, AnswerCount = itemCompareAnsweres.Count(), Completed = false };
+                    }
+
+                }
+                else
+                {
+                    return new ImageCompareStruct() { Completed = true, Success = true };
+                }
+
+            }
+            return new ImageCompareStruct() { Success = false };
+
+        }
+
+        public void InsertItemCompareAnswer(string research_str, string uid, string ip, string selectedItem, string unSelectedItem)
+        {
+            var userid = Tool.GetUserId(uid, ip);
+            var research = GetResearch(research_str);
+            int seleted, unSelected;
+            if (research != null && userid.HasValue && int.TryParse(selectedItem, out seleted) && int.TryParse(unSelectedItem, out unSelected))
+            {
+                var user = this.Users.Where(n => n.UserId == userid).FirstOrDefault();
+                var good = this.Items.Where(n => n.ItemId == seleted).FirstOrDefault();
+                var bad = this.Items.Where(n => n.ItemId == unSelected).FirstOrDefault();
+
+                if (user != null && good != null && bad != null)
+                {
+                    string key;
+                    if (seleted < unSelected)
+                    {
+                        key = seleted + "_" + unSelected;
+                    }
+                    else
+                    {
+                        key = unSelected + "_" + seleted;
+                    }
+
+                    ItemCompareAnswer a = new ItemCompareAnswer()
+                    {
+                        User = user,
+                        ItemGood = good,
+                        Research = research,
+                        ItemBad = bad,
+                        Reg_Date = DateTime.Now,
+                        Upd_Date = DateTime.Now,
+                        PairKey = key
+                    };
+                    this.ItemCompareAnsweres.Add(a);
+                    this.SaveChanges();
+                }
+            }
+        }
+
 
         public ImageDataStruct GetNextImageId(string research_str, string uid, string ip)
         {
@@ -224,6 +322,20 @@ namespace GoocaBoocaDataModels
             {
                 var user = this.Users.Where(n => n.UserId == userId.Value).FirstOrDefault();
 
+                int count = 0;
+                foreach (var item in dic)
+                {
+                    var d = item.Key.Split('_');
+                    if (d.First() == "q" || d.First() == "f")
+                    {
+                        count++;
+                    }
+                }
+                if (count != this.Questiones.Where(n => n.Research.ResearchId == research.ResearchId).Count())
+                {
+                    return false;
+                }
+
                 foreach (var item in dic)
                 {
                     var d = item.Key.Split('_');
@@ -231,22 +343,31 @@ namespace GoocaBoocaDataModels
                     {
                         int q_id;
                         int a_id;
-                        if (int.TryParse(d.Last(), out q_id) && int.TryParse(item.Value, out a_id))
+                        if (int.TryParse(d.Last(), out q_id) && int.TryParse(item.Value.Split('_').LastOrDefault(), out a_id))
                         {
                             var question = this.Questiones.Where(n => n.QuestionId == q_id).FirstOrDefault();
                             var choice = this.QuestionChoices.Where(n => n.QuestionChoiceId == a_id).FirstOrDefault();
                             if (question != null && choice != null)
                             {
-                                QuestionAnswer qa = new QuestionAnswer()
+                                var answer = this.QuestionAnsweres.Where(n => n.User.UserId == user.UserId && n.Question.QuestionId == question.QuestionId).FirstOrDefault();
+                                if (answer != null)
                                 {
-                                    Question = question,
-                                    Research = research,
-                                    User = user,
-                                    QuestionChoice = choice,
-                                    Reg_Date = DateTime.Now,
-                                    Upd_Date = DateTime.Now
-                                };
-                                this.QuestionAnsweres.Add(qa);
+                                    answer.QuestionChoice = choice;
+                                    answer.Upd_Date = DateTime.Now;
+                                }
+                                else
+                                {
+                                    QuestionAnswer qa = new QuestionAnswer()
+                                    {
+                                        Question = question,
+                                        Research = research,
+                                        User = user,
+                                        QuestionChoice = choice,
+                                        Reg_Date = DateTime.Now,
+                                        Upd_Date = DateTime.Now
+                                    };
+                                    this.QuestionAnsweres.Add(qa);
+                                }
                             }
                         }
                     }
@@ -258,13 +379,24 @@ namespace GoocaBoocaDataModels
                             var question = this.Questiones.Where(n => n.QuestionId == q_id).FirstOrDefault();
                             if (question != null)
                             {
-                                FreeAnswer fa = new FreeAnswer()
+                                var ff = this.FreeAnsweres.Where(n => n.User.UserId == user.UserId && n.Question.QuestionId == question.QuestionId).FirstOrDefault();
+                                if (ff != null)
                                 {
-                                    FreeTest = item.Value,
-                                    Question = question,
-                                    User = user
-                                };
-
+                                    ff.FreeTest = item.Value;
+                                    ff.Upd_Date = DateTime.Now;
+                                }
+                                else
+                                {
+                                    FreeAnswer fa = new FreeAnswer()
+                                    {
+                                        FreeTest = item.Value,
+                                        Question = question,
+                                        User = user,
+                                        Reg_Date = DateTime.Now,
+                                        Upd_Date = DateTime.Now
+                                    };
+                                    this.FreeAnsweres.Add(fa);
+                                }
                             }
                         }
                     }

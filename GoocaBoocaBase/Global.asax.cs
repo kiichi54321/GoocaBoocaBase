@@ -39,6 +39,12 @@ namespace GoocaBoocaBase
                 "{controller}/{action}/{research_id}-{image_id}-{answer_id}/{uid}",
                 new { controller = "Home", action = "Answer", research_id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                "Answer3",
+                "{controller}/{action}/{research_id}-{selected_image_id}-{noSelected_image_id}/{uid}",
+                new { controller = "Home", action = "Answer", research_id = UrlParameter.Optional }
+            );
         }
 
         protected void Application_Start()
@@ -48,7 +54,7 @@ namespace GoocaBoocaBase
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
-         
+
         }
     }
 }

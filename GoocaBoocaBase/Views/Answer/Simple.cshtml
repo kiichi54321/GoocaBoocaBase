@@ -2,10 +2,25 @@
     ViewBag.Title = "Simple";
 }
 @using GoocaBoocaBase.Helpers
+<script type="text/javascript" src="http://blog-imgs-48.fc2.com/j/q/u/jqueryintro/jQueryRotate22.js"></script> 
+
+<script type="text/javascript">
+    $(function () {
+        var i = 0;
+        setInterval(function () {
+            i += 1;
+            $("#hoge").rotate(i);
+        }, 1)
+    });
+</script>　
 
 <p>回答数： @ViewBag.answerCount</p>
-@Html.Image("", @Url.Action("ItemDownload", "Image", new { id = ViewBag.item_id.ToString() }),"MainImage")
+<p>@ViewBag.Description</p>
 <div>
+@Html.Image("hoge", @Url.Action("ItemDownload", "Image", new { id = ViewBag.item_id.ToString() }), "MainImage")
+</div>
+<div>
+
 @Html.ActionLink("Good", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 1 })
 @Html.ActionLink("Bad", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 2 })
 </div>

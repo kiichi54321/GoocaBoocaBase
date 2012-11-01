@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "ViewQuestionAnswer";
+}
+@model IEnumerable<GoocaBoocaDataModels.QuestionAnswer>
+@using GoocaBoocaBase.Helpers
+<h2>ViewQuestionAnswer</h2>
+
+<table>
+@foreach (var item in Model) {  
+  <tr>
+    <td>
+      @Html.DisplayFor(modelItem => item.User.UserName)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.Question.QuestionText)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.QuestionChoice.QuestionChoiceText)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.Reg_Date)
+    </td>
+  </tr>
+}
+</table>

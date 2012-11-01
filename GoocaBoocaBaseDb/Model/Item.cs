@@ -19,6 +19,7 @@ namespace GoocaBoocaDataModels
         public virtual ItemCategory Category { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
     }
 
     public class Image
@@ -29,5 +30,6 @@ namespace GoocaBoocaDataModels
         public string ImageType { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
     }
 }

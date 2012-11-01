@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "SimpleCompare";   
+}
+@using GoocaBoocaBase.Helpers
+
+<script type="text/javascript">
+    $(function () {
+        var nav = $('.overimg');
+        nav.hover(
+		function () {
+		    $(this).fadeTo(500, 0.5);
+		},
+		function () {
+		    $(this).fadeTo(500, 1);
+		}
+	);
+    });
+</script>
+
+<h2>@ViewBag.QuestionText</h2>
+
+<p>回答数： @ViewBag.answerCount</p>
+
+<div>
+<a href="@Url.Action("SimpleCompare", "Answer", new { selected_image_id = ViewBag.ItemA, noSelected_image_id = ViewBag.ItemB, uid = ViewBag.uid, research_id = ViewBag.research_id })">
+@Html.Image("", @Url.Action("ItemDownload", "Image", new { id = ViewBag.ItemA.ToString() }), "ImageA", "overimg", null)
+</a>
+<a href="@Url.Action("SimpleCompare", "Answer", new { selected_image_id = ViewBag.ItemB, noSelected_image_id = ViewBag.ItemA, uid = ViewBag.uid, research_id = ViewBag.research_id })">
+@Html.Image("", @Url.Action("ItemDownload", "Image", new { id = ViewBag.ItemB.ToString() }),"ImageB" ,"overimg", null)
+</a>
+</div>
+<p>画像をクリックしてください</p>
+<p> @ViewBag.Message</p>
+<p>@ViewBag.Description</p>

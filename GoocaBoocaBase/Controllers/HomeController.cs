@@ -19,16 +19,24 @@ namespace GoocaBoocaBase.Controllers
         {
             return View();
         }
-        GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
 
         public ActionResult ViewImages()
         {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             return View(db.Items.ToArray());
         }
 
         public ActionResult ViewAnswerData()
         {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             return View(db.ItemAnsweres.ToArray());
+        }
+
+        public ActionResult ViewQuestionAnswer()
+        {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            return View(db.QuestionAnsweres.ToArray());
+
         }
 
     }

@@ -25,6 +25,8 @@ namespace GoocaBoocaDataModels
         public DateTime Upd_Date { get; set; }
         public virtual ICollection<QuestionChoice> QuestionChoices { get; set; }
         public virtual Image Image { get; set; }
+        public string Tag { get; set; }
+
     }
 
     public class QuestionChoice
@@ -36,6 +38,9 @@ namespace GoocaBoocaDataModels
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
         public virtual Image Image { get; set; }
+        public string Tag { get; set; }
+
+
     }
 
     public class QuestionAnswer
@@ -47,6 +52,8 @@ namespace GoocaBoocaDataModels
         public virtual QuestionChoice QuestionChoice { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
+
     }
 
     public class QuestionCollection : List<Question>
@@ -70,5 +77,6 @@ namespace GoocaBoocaDataModels
         public string FreeTest { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
+        public string Tag { get; set; }
     }
 }

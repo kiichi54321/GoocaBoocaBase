@@ -30,7 +30,17 @@ namespace GoocaBoocaBase.Controllers
         {
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             string uid = db.GetUserId(UserName, this.Request.UserHostAddress);
+            var research = db.GetResearch(research_id);
+            if (research.ResearchType == GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
+            {
+                return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
+            }
+            else if(research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
+            {
+                return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
+            }
             return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
+
         }
 
 
@@ -46,33 +56,89 @@ namespace GoocaBoocaBase.Controllers
             else
             {
                 ViewBag.research_id = research_id;
+                ViewBag.uid = uid;               
+            }
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            var research = db.GetResearch(research_id);
+
+            if (research.ResearchType == GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
+            {
+                if (image_id != null && answer_id != null)
+                {
+                    db.InsertItemAnswer(research_id, image_id, uid, answer_id, this.Request.UserHostAddress);
+                }
+                ViewBag.Description = research.Description;
+
+
+                var data = db.GetNextImageId(research_id, uid, this.Request.UserHostAddress);
+
+                if (data.Success)
+                {
+                    ViewBag.item_id = data.ImageId;
+                    ViewBag.answerCount = data.AnswerCount;
+                    ViewBag.Message = data.Message;
+                }
+                else
+                {
+                    return RedirectToAction("SimpleQuestion", new { research_id = research_id, uid = uid });
+                }
+
+
+                return View();
+            }
+            else if (research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
+            {
+                return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
+            }
+            else 
+            {
+                return View();
+            }
+        }
+
+        public ActionResult SimpleCompare(string research_id, string selected_image_id, string noSelected_image_id, string uid)
+        {
+            if (CheckReferrer() == false) return RedirectToAction("Index", "Home");
+
+            if (uid == null || research_id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.research_id = research_id;
                 ViewBag.uid = uid;
             }
 
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
-            if (image_id != null && answer_id != null)
+            var research = db.GetResearch(research_id);
+            ViewBag.QuestionText = research.QuestionText;
+            ViewBag.Description = research.Description;
+            
+            if (selected_image_id != null && noSelected_image_id != null)
             {
-                db.InsertItemAnswer(research_id, image_id, uid, answer_id, this.Request.UserHostAddress);
+                db.InsertItemCompareAnswer(research_id, uid, this.Request.UserHostAddress, selected_image_id, noSelected_image_id);
             }
 
-            var data = db.GetNextImageId(research_id, uid, this.Request.UserHostAddress);
-
+            var data = db.GetNextCompareImage(research_id, uid, this.Request.UserHostAddress);
             if (data.Success)
             {
-                ViewBag.item_id = data.ImageId;
-                ViewBag.answerCount = data.AnswerCount;
+                ViewBag.ItemA = data.ImageAId;
+                ViewBag.ItemB = data.ImageBId;
                 ViewBag.Message = data.Message;
+                ViewBag.answerCount = data.AnswerCount;
             }
-            else
+            if (data.Completed)
             {
                 return RedirectToAction("SimpleQuestion", new { research_id = research_id, uid = uid });
             }
-            
 
             return View();
+
         }
 
-        public ActionResult SimpleQuestion(string research_id, string uid)
+
+        public ActionResult SimpleQuestion(string research_id, string uid,string flag , FormCollection paraList)
         {
             if (CheckReferrer() == false) return RedirectToAction("Index", "Home");
 
@@ -86,23 +152,33 @@ namespace GoocaBoocaBase.Controllers
                 ViewBag.uid = uid;
             }
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            if (flag != null)
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                foreach (var item in paraList.Keys)
+                {
+                    string[] v = paraList.GetValue(item.ToString()).RawValue as string[];
+                    dic.Add(item.ToString(), v.First());
+                }
+                var f = db.InsertQuestionAnswer(research_id, uid, this.Request.UserHostAddress, dic);
+
+                if (f)
+                {
+                    return RedirectToAction("SimpleLastQuestion");
+                }
+                else
+                {
+                    ViewBag.ErrMessage = "すべてを回答してください";
+                }
+
+            }
             return View(db.GetQuestion(research_id).ToArray());
         }
 
-        [HttpPost]
         public ActionResult SimpleLastQuestion(string research_id, string uid, FormCollection paraList)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            foreach (var item in paraList.Keys)
-            {
-                string v = paraList.GetValue(item.ToString()).RawValue.ToString();
-                dic.Add(item.ToString(), v);
-            }
-            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
-            db.InsertQuestionAnswer(research_id, uid, this.Request.UserHostAddress, dic);
-            
-            return View();
 
+            return View();
         }
 
 

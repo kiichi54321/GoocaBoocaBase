@@ -15,6 +15,7 @@ namespace GoocaBoocaDataModels
         public string ResearchIdName { get; set; }
         public virtual User CreateUser { get; set; }
         public string Description { get; set; }
+        public string QuestionText { get; set; }
         public DateTime Reg_Date { get; set; }
         public DateTime Upd_Date { get; set; }
         public int AnswerCount { get; set; }
@@ -25,11 +26,12 @@ namespace GoocaBoocaDataModels
         public virtual ICollection<Question> Questiones { get; set; }
         public virtual ICollection<ItemAnswerChoice> ItemAnswerChoice { get; set; }
         public virtual Image ResearchMainImage { get; set; }
+        public string Tag { get; set; }
     }
 
     public enum ResearchType
     {
-        GoocaBooca,Order,None
+        GoocaBooca,Order,Compare,None
     }
 
 
