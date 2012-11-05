@@ -2,6 +2,9 @@
     ViewBag.Title = "Simple";
 }
 @using GoocaBoocaBase.Helpers
+@model IEnumerable<GoocaBoocaDataModels.ItemAnswerChoice>
+
+
 <script type="text/javascript" src="http://blog-imgs-48.fc2.com/j/q/u/jqueryintro/jQueryRotate22.js"></script> 
 
 <script type="text/javascript">
@@ -20,9 +23,14 @@
 @Html.Image("hoge", @Url.Action("ItemDownload", "Image", new { id = ViewBag.item_id.ToString() }), "MainImage")
 </div>
 <div>
-
-@Html.ActionLink("Good", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 1 })
-@Html.ActionLink("Bad", "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = 2 })
+<ul id="answerChoice">
+@foreach (var item in Model)
+{
+    <li>
+    @Html.ActionLink(item.AnswerString, "Simple", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = item.ItemAnswerChoiceId }, new { @class = "linkbuntton" })
+    </li>
+}
+</ul>
 </div>
 <p> @ViewBag.Message</p>
 

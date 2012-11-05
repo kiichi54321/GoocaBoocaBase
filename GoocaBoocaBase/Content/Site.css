@@ -343,3 +343,61 @@ div#title
 {
     width: 6em;
 }
+
+
+
+
+ul#answerChoice
+{
+/*    border-bottom: 1px #5C87B2 solid; */
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align:  left;
+}
+
+ul#answerChoice li
+{
+    display: inline;
+    list-style: none;
+}
+
+ul#answerChoice li#greeting
+{
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    color: #fff;
+}
+
+ul#answerChoice li a
+{
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    background-color: #e8eef4;
+    color: #034af3;
+        border-radius: 10px;        /* CSS3草案 */  
+    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */  
+    -moz-border-radius: 10px;
+}
+
+ul#answerChoice li a:hover
+{
+    background-color: #fff;
+    text-decoration: none;
+}
+
+ul#answerChoice li a:active
+{
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#answerChoice li.selected a
+{
+    background-color: #fff;
+    color: #000;
+}

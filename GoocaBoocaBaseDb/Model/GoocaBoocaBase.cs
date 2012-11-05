@@ -413,6 +413,20 @@ namespace GoocaBoocaDataModels
             return this.Researches.Where(n => n.ResearchIdName == research_str).FirstOrDefault();
         }
 
+        public User GetUser(string uid, string ip)
+        {
+            var userId = Tool.GetUserId(uid, ip);
+            if (userId.HasValue)
+            {
+                var user = this.Users.Where(n => n.UserId == userId.Value).FirstOrDefault();
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public IEnumerable<ItemAnswerChoice> GetItemAnswerChoice(string research_str)
         {
             var research = GetResearch(research_str);
@@ -422,6 +436,75 @@ namespace GoocaBoocaDataModels
             }
             return new List<ItemAnswerChoice>();
         }
+
+        public IEnumerable<Tuple<ItemCategory, ItemAnswerChoice, int>> GoocaBoocaResult(string research_str, string uid, string ip)
+        {
+            var research = GetResearch(research_str);
+            var userId = Tool.GetUserId(uid, ip);
+            var user = this.Users.Where(n => n.UserId == userId.Value).FirstOrDefault();
+
+            if (research != null && user != null)
+            {
+                var result_tmp = this.ItemAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId).GroupBy(n => new { n.ItemCategory, n.ItemAnswerChoice }).Select(n => new { ItemCategory = n.Key.ItemCategory, ItemAnswerChoice = n.Key.ItemAnswerChoice, Count = n.Count() }).OrderBy(n=>n.ItemCategory.ItemCategoryId).ThenBy(n=>n.ItemAnswerChoice.ItemAnswerChoiceId) ;
+                var answerPattern = from choice in this.ItemAnswerChoice.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
+                                    from category in this.ItemCategories.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
+                                    select new { Category = category, Choice = choice };
+
+                var result = from ap in answerPattern.ToArray()
+                             join userAnswer in result_tmp
+                                on new { ap.Category.ItemCategoryId, ap.Choice.ItemAnswerChoiceId } equals new { userAnswer.ItemCategory.ItemCategoryId, userAnswer.ItemAnswerChoice.ItemAnswerChoiceId } into z
+                             from a in z.DefaultIfEmpty()
+                             select new { ap.Category, ap.Choice,Count = (a == null) ? 0 : a.Count };
+
+                return result.OrderBy(n => n.Category.ItemCategoryId).ThenBy(n => n.Choice.ItemAnswerChoiceId).ToArray().Select(item => new Tuple<ItemCategory, ItemAnswerChoice, int>(item.Category, item.Choice, item.Count));
+
+            }
+
+            return new List<Tuple<ItemCategory, ItemAnswerChoice, int>>();
+        }
+
+        public IEnumerable<Tuple<string, string, double>> CompareResult(string research_str, string uid, string ip)
+        {
+            var research = GetResearch(research_str);
+            var user = GetUser(uid, ip);
+            if (research != null && user != null)
+            {
+                var result_tmp = this.ItemCompareAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId);
+                List<Tuple<string, string>> list = new List<Tuple<string, string>>(); 
+
+                foreach (var item in result_tmp)
+                {
+                    list.Add(new Tuple<string, string>(item.ItemGood.Category.ItemCategoryName, item.ItemBad.Category.ItemCategoryName));
+                    var g = item.ItemGood.Tag.Split(',');
+                    var b = item.ItemBad.Tag.Split(',');
+                    for (int i = 0; i < Math.Min(g.Length,b.Length); i++)
+                    {
+                        if(g[i] != b[i]) list.Add(new Tuple<string, string>(g[i], b[i]));
+                    }
+                }
+
+                var result = list.GroupBy(n => new { n.Item1, n.Item2 }).Select(n => new Tuple<string, string, int, string>(n.Key.Item1, n.Key.Item2, n.Count(), Tool.GetSortText(n.Key.Item1, n.Key.Item2))).GroupBy(n => n.Item4);
+
+                List<Tuple<string, string, double>> list2 = new List<Tuple<string, string, double>>();
+                foreach (var item in result)
+                {
+                    var tmp = item.OrderByDescending(n => n.Item3).ToArray();
+                    if (tmp.Length > 1)
+                    {
+                        list2.Add(new Tuple<string, string, double>(tmp.First().Item1, tmp.First().Item2, (double)tmp.First().Item3 / (double)(tmp.First().Item3 + tmp.Last().Item3)));
+                    }
+                    else
+                    {
+                        list2.Add(new Tuple<string, string, double>(tmp.First().Item1, tmp.First().Item2,  (double)tmp.First().Item3 / (double)(tmp.First().Item3)));
+                    }
+                }
+                return list2.OrderByDescending(n=>n.Item3);
+            }
+
+            return new List<Tuple<string, string, double>>();
+
+        }
+
     }
 
     public static class Tool
@@ -440,6 +523,45 @@ namespace GoocaBoocaDataModels
         {
             return user_id.ToString();
         }
+
+        public static string GetSortText(string t1, string t2)
+        {
+            if (t1.CompareTo(t2) > 0)
+            {
+                return t1 + "," + t2;
+            }
+            else
+            {
+                return t2 + "," + t1;
+            }
+
+        }
+
+        public static IEnumerable<Tuple<IEnumerable<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source,double minValue)
+        {
+            var data = source.Where(n => n.Item3 >= minValue);
+            var data2 = data.GroupBy(n => n.Item1).Where(n => n.Count() > 1);
+
+
+            List<Tuple<List<string>, double>> list = new List<Tuple<List<string>, double>>();
+            foreach (var item in data2)
+            {
+                foreach (var item2 in item)
+                {
+                    foreach (var item3 in item)
+                    {
+                        if (item2.Item2 != item3.Item2)
+                        {
+                            var d = data.Where(n => n.Item1 == item2.Item2 && n.Item2 == item3.Item2).FirstOrDefault();
+                            if(d !=null) list.Add(new Tuple< List<string>,double>(new List<string>(){item.Key,item2.Item2,item3.Item2},item2.Item3*item3.Item3*d.Item3));
+                            
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 
     public class CustomSeedInitializer : DropCreateDatabaseAlways<GoocaBoocaDataBase>

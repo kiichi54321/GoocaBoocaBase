@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "GoocaBooca結果";
+}
+@model IEnumerable<Tuple<GoocaBoocaDataModels.ItemCategory, GoocaBoocaDataModels.ItemAnswerChoice, int>>
+<h2>
+    GoocaBooca結果</h2>
+<table>
+    <thead>
+        <tr>
+            <th>
+                カテゴリ
+            </th>
+            @foreach (var item in Model.OrderBy(n => n.Item2.ItemAnswerChoiceId).Select(n => n.Item2.AnswerString).Distinct())
+            {
+                <th>@item
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GroupBy(n => n.Item1))
+        {
+            <tr>
+                <td>@item.Key.ItemCategoryName
+                </td>
+                @foreach (var item2 in item.OrderBy(n => n.Item2.ItemAnswerChoiceId))
+                {
+                    <td>
+                        @item2.Item3
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

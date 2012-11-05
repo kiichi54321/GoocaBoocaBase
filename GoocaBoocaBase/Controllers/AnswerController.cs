@@ -84,7 +84,7 @@ namespace GoocaBoocaBase.Controllers
                 }
 
 
-                return View();
+                return View(db.ItemAnswerChoice.Where(n=>n.Research.ResearchId == research.ResearchId).ToArray());
             }
             else if (research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
             {
@@ -164,7 +164,7 @@ namespace GoocaBoocaBase.Controllers
 
                 if (f)
                 {
-                    return RedirectToAction("SimpleLastQuestion");
+                    return RedirectToAction("SimpleLastQuestion", new { research_id = research_id, uid = uid });
                 }
                 else
                 {
@@ -177,7 +177,8 @@ namespace GoocaBoocaBase.Controllers
 
         public ActionResult SimpleLastQuestion(string research_id, string uid, FormCollection paraList)
         {
-
+            ViewBag.research_id = research_id;
+            ViewBag.uid = uid;
             return View();
         }
 

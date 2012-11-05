@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Compare";
+}
+
+<h2>Compare結果</h2>
+
+@model IEnumerable<Tuple<string, string, double>>
+
+<table>
+    <thead>
+        <tr>
+            <th>属性</th>
+            <th>&gt;</th>
+            <th>属性</th>
+            <th>支持度合い（%）</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(n => item.Item1)</td>
+                <td>&gt;</td>
+                <td>@Html.DisplayFor(n => item.Item2)</td>
+                <td>@(Math.Floor(item.Item3*100)/100)</td>
+            </tr>
+        }
+    </tbody>
+</table>
