@@ -40,6 +40,13 @@
                     <DataGrid Name="dataGrid1" Width="630" Margin="0,29,-4,0" />
                 </Grid>
             </TabItem>
+            <TabItem Header="tabItem2" Name="tabItem2">
+                <Grid>
+                    <TextBox Height="24" HorizontalAlignment="Right" Margin="0,4,426,0" Name="textBox5" VerticalAlignment="Top" Width="120" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="7,7,0,0" Name="textBlock2" Text="リサーチ名" VerticalAlignment="Top" />
+                    <Button Content="メイン画像のUP" Height="23" HorizontalAlignment="Left" Margin="206,4,0,0" Name="button8" VerticalAlignment="Top" Width="155" Click="button8_Click" />
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

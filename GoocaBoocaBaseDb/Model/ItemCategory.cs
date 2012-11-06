@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GoocaBoocaDataModels
 {
-    public class ItemCategory
+    public class ItemCategory:BaseModel
     {
         public int ItemCategoryId { get; set; }
         [StringLength(50)]
@@ -14,9 +14,5 @@ namespace GoocaBoocaDataModels
         public virtual Research Research { get; set; }
         public virtual ICollection<Item> Items { get; set; }
         public virtual Image CategoryImage { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
-        public string Tag { get; set; }
-
     }
 }

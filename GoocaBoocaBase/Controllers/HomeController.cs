@@ -10,9 +10,9 @@ namespace GoocaBoocaBase.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "ASP.NET MVC へようこそ";
-
-            return View();
+      //      ViewBag.Message = "GoocaBoocaへようこそ";
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();          
+            return View(db.Researches.ToArray());
         }
 
         public ActionResult About()

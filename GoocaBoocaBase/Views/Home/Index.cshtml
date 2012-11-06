@@ -1,25 +1,26 @@
 ﻿@{
     ViewBag.Title = "ホーム ページ";
 }
+@model IEnumerable<GoocaBoocaDataModels.Research>
+@using GoocaBoocaBase.Helpers
 
-<h2>@ViewBag.Message</h2>
-<p>
-    ASP.NET MVC の詳細については、<a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a> を参照してください。
-</p>
-<p>@Html.ActionLink("ViewImages", "ViewImages")</p>
-<p>@Html.ActionLink("ViewAnswerData", "ViewAnswerData")</p>
-<p>@Html.ActionLink("ViewQuestionAnswer","ViewQuestionAnswer")</p>
-<p>キュートモ</p>
-<p>
- @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
- {
-     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", "cutomo2012") <input type="submit" value="送信" />     
- }
-</p>
-<p>えろかわ</p>
+<h2>GoocaBoocaへようこそ</h2>
+
+
+@foreach (var item in Model)
+{
+<h3>@item.ResearchName</h3>
+    if (item.ResearchMainImage != null)
+    {
+        @Html.Image("", @Url.Action("Download", "Image", new { id = item.ResearchMainImage.ImageId }), item.ResearchName);
+    }
+    
 <p>
  @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
  {
-     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", "kawaero2012") <input type="submit" value="送信" />     
+     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", item.ResearchIdName) <input type="submit" value="送信" />     
  }
 </p>
+    
+}
+

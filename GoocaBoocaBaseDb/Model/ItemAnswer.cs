@@ -5,7 +5,7 @@ using System.Web;
 
 namespace GoocaBoocaDataModels
 {
-    public class ItemAnswer
+    public class ItemAnswer:BaseModel
     {
         public int ItemAnswerId { get; set; }
         public virtual User User { get; set; }
@@ -15,12 +15,9 @@ namespace GoocaBoocaDataModels
         public virtual ItemCategory ItemCategory { get; set; }
         public int Order { get; set; }
         public int Group { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
-        public string Tag { get; set; }
     }
 
-    public class ItemCompareAnswer
+    public class ItemCompareAnswer : BaseModel
     {
         public int ItemCompareAnswerId { get; set; }
         public virtual User User { get; set; }
@@ -28,14 +25,10 @@ namespace GoocaBoocaDataModels
         public virtual Item ItemGood { get; set; }
         public virtual Item ItemBad { get; set; }
         public string PairKey { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
-        public string Tag { get; set; }
-
     }
 
 
-    public class ItemAnswerChoice
+    public class ItemAnswerChoice : BaseModel
     {
         public int ItemAnswerChoiceId { get; set; }
         public virtual Research Research { get; set; }

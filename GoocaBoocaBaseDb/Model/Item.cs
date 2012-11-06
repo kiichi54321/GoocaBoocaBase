@@ -8,7 +8,7 @@ namespace GoocaBoocaDataModels
 {
     public enum ImageType {jpeg,png }
 
-    public class Item
+    public class Item:BaseModel
     {
         public int ItemId { get; set; }
         [StringLength(32)]
@@ -17,19 +17,23 @@ namespace GoocaBoocaDataModels
         public byte[] ImageData { get; set; }
         public string ImageType { get; set; }
         public virtual ItemCategory Category { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
-        public string Tag { get; set; }
+        public virtual ICollection<ItemAttribute> ItemAttribute { get; set; } 
     }
 
-    public class Image
+    public class Image:BaseModel
     {
         public int ImageId { get; set; }
         public string ImageName { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageType { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
-        public string Tag { get; set; }
+    }
+
+    public class ItemAttribute:BaseModel
+    {
+        public int ItemAttributeId { get; set; }
+        public virtual Item Item { get; set; }
+        public string AttributeCategory { get; set; }
+        public string AttributeName { get; set; }
+        public string Value { get; set; }
     }
 }

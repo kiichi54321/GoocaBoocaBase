@@ -31,13 +31,16 @@ namespace GoocaBoocaBase.Controllers
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             string uid = db.GetUserId(UserName, this.Request.UserHostAddress);
             var research = db.GetResearch(research_id);
-            if (research.ResearchType == GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
+            if (research != null)
             {
-                return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
-            }
-            else if(research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
-            {
-                return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
+                if (research.ResearchType == GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
+                {
+                    return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
+                }
+                else if (research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
+                {
+                    return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
+                }
             }
             return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
 

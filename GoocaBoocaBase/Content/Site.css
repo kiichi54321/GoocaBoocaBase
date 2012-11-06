@@ -5,7 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
+    background-color: #FF69B4;
     font-size: 75%;
     font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
     margin: 0;
@@ -51,6 +51,7 @@ h1
     font-size: 2em;
     padding-bottom: 0;
     margin-bottom: 0;
+    
 }
 h2
 {
@@ -83,7 +84,7 @@ first child of the left and right table columns */
 page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width: 90%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -101,7 +102,7 @@ page width. Or, you can specify an exact pixel width. */
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
-    color: #fff;
+    color: #FFFFFF;
     border: none;
     line-height: 2em;
     font-size: 32px !important;
@@ -249,14 +250,17 @@ table th
 
 #menucontainer
 {
-    margin-top:40px;
+    margin-top:5px;
 }
 
 div#title
 {
-    display:block;
+/*    display:block;
     float:left;
     text-align:left;
+color : Silver;
+*/
+
 }
 
 #logindisplay

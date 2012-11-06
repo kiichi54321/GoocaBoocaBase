@@ -33,7 +33,7 @@ namespace GoocaBoocaInputDataForm
                 Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             }
             //     Database.SetInitializer(new GoocaBoocaDataModels.CustomSeedInitializer());
-         //  
+            //  
             //  
         }
 
@@ -94,15 +94,14 @@ namespace GoocaBoocaInputDataForm
                     Hidden = true,
                     ResearchName = "キュートモ",
                     QuestionText = "「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」",
-                    Reg_Date = DateTime.Now,
-                    Upd_Date = DateTime.Now
                 };
+                research.SetDate();
                 db.Researches.Add(research);
             }
 
 
-            db.ItemAnswerChoice.Add(new ItemAnswerChoice() { AnswerString = "仲良くなりたい！", Research = research });
-            db.ItemAnswerChoice.Add(new ItemAnswerChoice() { AnswerString = "別に・・・", Research = research });
+            db.ItemAnswerChoice.Add(new ItemAnswerChoice() { AnswerString = "仲良くなりたい！", Research = research, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true });
+            db.ItemAnswerChoice.Add(new ItemAnswerChoice() { AnswerString = "別に・・・", Research = research, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true });
 
             Dictionary<string, ItemCategory> categoryDic = new Dictionary<string, ItemCategory>();
             var basefolder = System.IO.Path.GetDirectoryName(this.textBox1.Text);
@@ -116,7 +115,8 @@ namespace GoocaBoocaInputDataForm
                 var image_file_name = data[3];
                 if (categoryDic.ContainsKey(brand_name) == false)
                 {
-                    var c = new ItemCategory() { ItemCategoryName = brand_name, Research = research, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now };
+                    var c = new ItemCategory() { ItemCategoryName = brand_name, Research = research };
+                    c.SetDate();
                     categoryDic.Add(data[1], c);
                     db.ItemCategories.Add(c);
                 }
@@ -130,9 +130,8 @@ namespace GoocaBoocaInputDataForm
                         Category = category,
                         ItemName = data[3],
                         Resarch = research,
-                        Reg_Date = DateTime.Now,
-                        Upd_Date = DateTime.Now
                     };
+                    itemdata.SetDate();
                 }
                 var image = System.IO.File.ReadAllBytes(basefolder + "/" + data[1] + "/" + data[3]);
                 itemdata.ImageType = data[3].Split('.').Last();
@@ -145,11 +144,18 @@ namespace GoocaBoocaInputDataForm
             {
                 if (item.First() == '\t')
                 {
-                    db.QuestionChoices.Add(new QuestionChoice() { QuestionChoiceText = item.Replace("\t", ""), Question = question, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now });
+                    db.QuestionChoices.Add(new QuestionChoice() { QuestionChoiceText = item.Replace("\t", ""), Question = question, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true });
                 }
                 else
                 {
-                    question = new Question() { QuestionName = item, QuestionType = QuestionType.Choice.ToString(), QuestionText = item, Research = research, QuestionOrder = 1, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now };
+                    if (item.Split('\t').Last() == "Free")
+                    {
+                        question = new Question() { QuestionName = item.Split('\t').First(), QuestionType = QuestionType.FreeText.ToString(), QuestionText = item.Split('\t').First(), Research = research, QuestionOrder = 1, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true };
+                    }
+                    else
+                    {
+                        question = new Question() { QuestionName = item, QuestionType = QuestionType.Choice.ToString(), QuestionText = item, Research = research, QuestionOrder = 1, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true };
+                    }
                     db.Questiones.Add(question);
                 }
             }
@@ -191,7 +197,7 @@ namespace GoocaBoocaInputDataForm
                 var image_file_name = data[1];
                 if (categoryDic.ContainsKey(category_id) == false)
                 {
-                    var c = new ItemCategory() { ItemCategoryName = category_id, Research = research, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now };
+                    var c = new ItemCategory() { ItemCategoryName = category_id, Research = research, Reg_Date = DateTime.Now, Upd_Date = DateTime.Now, IsActive = true };
                     categoryDic.Add(category_id, c);
                     db.ItemCategories.Add(c);
                 }
@@ -207,13 +213,29 @@ namespace GoocaBoocaInputDataForm
                         Resarch = research,
                         Reg_Date = DateTime.Now,
                         Upd_Date = DateTime.Now,
+                        IsActive = true,
                         Tag = tag
                     };
+                    db.Items.Add(itemdata);
                 }
                 var image = System.IO.File.ReadAllBytes(basefolder + "/" + "keion_resize" + "/" + image_file_name);
                 itemdata.ImageType = image_file_name.Split('.').Last();
                 itemdata.ImageData = image;
-                db.Items.Add(itemdata);
+
+                foreach (var tags in tag.Split(','))
+                {
+                    var attribute = tags.Split(':');
+                    var a =  attribute.First();
+                    var attributeData = db.ItemAttributes.Where(n => n.Item.ItemId == itemdata.ItemId && n.AttributeName == a).FirstOrDefault();
+                    if (attributeData == null)
+                    {
+                        attributeData = new ItemAttribute() { AttributeName = a, Item = itemdata,AttributeCategory = string.Empty };
+                        attributeData.SetDate();
+                        db.ItemAttributes.Add(attributeData);
+                    }
+                    attributeData.Value = attribute.Last();
+                }
+
             }
 
             Question question = null;
@@ -239,8 +261,14 @@ namespace GoocaBoocaInputDataForm
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             //  Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
-            cutomo(db);
-            Keion(db);
+            if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0)
+            {
+                cutomo(db);
+            }
+            if (textBox3.Text.Length > 0 && textBox4.Text.Length > 0)
+            {
+                Keion(db);
+            }
             MessageBox.Show("end");
         }
 
@@ -250,7 +278,7 @@ namespace GoocaBoocaInputDataForm
             var data = db.Researches.Where(n => n.ResearchIdName == "kawaero2012").FirstOrDefault();
             if (data != null)
             {
-             //   data.ResearchType = ResearchType.Compare.ToString();
+                //   data.ResearchType = ResearchType.Compare.ToString();
                 data.AnswerCount = 30;
                 db.Researches.Add(data);
                 db.SaveChanges();
@@ -263,6 +291,37 @@ namespace GoocaBoocaInputDataForm
         {
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             var list = db.Researches.ToArray();
+        }
+
+        private void button8_Click(object sender, RoutedEventArgs e)
+        {
+            var name = textBox5.Text;
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+
+            var research = db.Researches.Where(n => n.ResearchIdName == name).FirstOrDefault();
+            if (research != null)
+            {
+                Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+
+                if (ofd.ShowDialog() == true)
+                {
+                    var image = research.ResearchMainImage;
+                    if (image == null)
+                    {
+                        image = new GoocaBoocaDataModels.Image() { ImageName = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName), ImageType = ofd.FileName.Split('.').Last() };
+                        image.SetDate();
+                        db.Images.Add(image);
+                    }
+                    image.ImageData = System.IO.File.ReadAllBytes(ofd.FileName);
+                    image.Upd_Date = DateTime.Now;
+                    research.ResearchMainImage = image;
+                    db.SaveChanges();
+                    MessageBox.Show("OK");
+                    return;
+                }
+            }
+            MessageBox.Show("Fales");
+
         }
 
 

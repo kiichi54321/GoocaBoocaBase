@@ -20,26 +20,30 @@
 <body>
     <div class="page">
         <div id="header">
-            <div id="title">
-                <h1>
-                    GoocaBooca</h1>
-            </div>
+
             <!--
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
-            </div>
--->
+            </div> -->
+
             <div id="menucontainer">
+                        <div id="title">
+            <h1>おしゃべりなロングテール2012</h1>
+                
+            </div>
+            <!--
                 <ul id="menu">
-                    <li>@Html.ActionLink("ホーム", "Index", "Home")</li>
+                    <li></li>
                     <li>@Html.ActionLink("バージョン情報", "About", "Home")</li>
                 </ul>
+                  -->
             </div>
+          
         </div>
         <div id="main">
             @RenderBody()
             <div id="footer">
-                KenGLab 2012
+                KenGLab 2012 @Html.ActionLink("ホーム", "Index", "Home")
             </div>
         </div>
     </div>

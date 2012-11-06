@@ -12,7 +12,7 @@ namespace GoocaBoocaDataModels
         male,
         female
     }
-    public class User
+    public class User:BaseModel
     {
         public int UserId { get; set; }
         [StringLength(10)]
@@ -24,10 +24,7 @@ namespace GoocaBoocaDataModels
         public virtual ICollection<ItemAnswer> ItemAnswer { get; set; }
         public virtual ICollection<QuestionAnswer> QuestionAnswer { get; set; }
         public virtual ICollection<FreeAnswer> FreeAnswer { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
         public virtual UserImage UserImage { get; set; }
-        public string Tag { get; set; }
     }
 
     //public class GenderType
@@ -36,40 +33,34 @@ namespace GoocaBoocaDataModels
     //    public string Name { get; set; }
     //}
 
-    public class TwitterLogin
+    public class TwitterLogin:BaseModel
     {
         public int TwitterLoginId { get; set; }
         public string ScreenName { get; set; }
-        public string Tag { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
+        public string Token { get; set; }
     }
 
-    public class FaceBookLogin
+    public class FaceBookLogin:BaseModel
     {
         public int FaceBookLoginId { get; set; }
         public string ScreenName { get; set; }
-        public string Tag { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public DateTime Upd_Date { get; set; }
+        public string Token { get; set; }
     }
 
-    public class UserImage
+    public class UserImage:BaseModel
     {
         public int UserImageId { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageType { get; set; }
         public string ImageName { get; set; }
-        public string Tag { get; set; }
     }
 
-    public class UserAnswerCompleted
+    public class UserAnswerCompleted:BaseModel
     {
         public int UserAnswerCompletedId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<ItemAnswer> ItemAnsweres { get; set; }
         public virtual Research Research { get; set; }
-        public DateTime Reg_Date { get; set; }
-        public string Tag { get; set; }
+
     }
 }

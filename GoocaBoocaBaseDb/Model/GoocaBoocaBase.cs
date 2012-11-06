@@ -30,6 +30,8 @@ namespace GoocaBoocaDataModels
         public DbSet<UserAnswerCompleted> UserAnswerCompleted { get; set; }
         public DbSet<FreeAnswer> FreeAnsweres { get; set; }
         public DbSet<ItemCompareAnswer> ItemCompareAnsweres { get; set; }
+        public DbSet<ItemAttribute> ItemAttributes { get; set; }
+        public DbSet<QuestionAttribute> QuestionAttribute { get; set; }
         //    public DbSet<GenderType> GenderType { get; set; }
         //    public DbSet<QuestionType> QuestionType { get; set; }
 
@@ -54,11 +56,9 @@ namespace GoocaBoocaDataModels
                     ItemAnswerChoice = choice,
                     ItemCategory = item.Category,
                     Research = research,
-                    User = user,
-                    Reg_Date = DateTime.Now,
-                    Upd_Date = DateTime.Now
+                    User = user, 
                 };
-
+                answer.SetDate();
                 this.ItemAnsweres.Add(answer);
             }
             else
@@ -104,10 +104,9 @@ namespace GoocaBoocaDataModels
                 Question = question,
                 QuestionChoice = choice,
                 Research = research,
-                User = user,
-                Reg_Date = DateTime.Now,
-                Upd_Date = DateTime.Now
+                User = user
             };
+            q.SetDate();
             this.QuestionAnsweres.Add(q);
             this.SaveChanges();
         }
@@ -148,7 +147,7 @@ namespace GoocaBoocaDataModels
             if (data.AnswerCount == research.AnswerCount)
             {
                 data.Success = false;
-                this.UserAnswerCompleted.Add(new UserAnswerCompleted() { Research = research, User = user, Reg_Date = DateTime.Now });
+                this.UserAnswerCompleted.Add(new UserAnswerCompleted() { Research = research, User = user, Reg_Date = DateTime.Now, IsActive = true, Upd_Date = DateTime.Now });
                 this.SaveChanges();
                 return data;
             }
@@ -199,7 +198,7 @@ namespace GoocaBoocaDataModels
         {
             var userid = Tool.GetUserId(uid, ip);
             var research = GetResearch(research_str);
-
+            var user = GetUser(uid, ip);
             if (research != null && userid.HasValue == true)
             {
                 var itemCompareAnsweres = this.ItemCompareAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == userid.Value);
@@ -235,6 +234,13 @@ namespace GoocaBoocaDataModels
                 }
                 else
                 {
+                    if (user != null)
+                    {
+                        var ua = new UserAnswerCompleted() { Research = research, User = user };
+                        ua.SetDate();
+                        this.UserAnswerCompleted.Add(ua);
+                    }
+                    this.SaveChanges();
                     return new ImageCompareStruct() { Completed = true, Success = true };
                 }
 
@@ -272,10 +278,9 @@ namespace GoocaBoocaDataModels
                         ItemGood = good,
                         Research = research,
                         ItemBad = bad,
-                        Reg_Date = DateTime.Now,
-                        Upd_Date = DateTime.Now,
                         PairKey = key
                     };
+                    a.SetDate();
                     this.ItemCompareAnsweres.Add(a);
                     this.SaveChanges();
                 }
@@ -299,19 +304,18 @@ namespace GoocaBoocaDataModels
 
         public string GetUserId(string userName, string ip)
         {
-            var user = this.Users.Where(n => n.UserName == userName).FirstOrDefault();
-            if (user == null)
+            //var user = this.Users.Where(n => n.UserName == userName).FirstOrDefault();
+            //if (user == null)
             {
-                user = new User()
+              var  user = new User()
                 {
                     UserName = userName,
-                    Reg_Date = DateTime.Now,
-                    Upd_Date = DateTime.Now
                 };
+              user.SetDate();
                 this.Users.Add(user);
                 this.SaveChanges();
+                return Tool.ChangeUserId(user.UserId, ip);
             }
-            return Tool.ChangeUserId(user.UserId, ip);
         }
 
         public bool InsertQuestionAnswer(string research_str, string uid, string ip, Dictionary<string, string> dic)
@@ -363,9 +367,8 @@ namespace GoocaBoocaDataModels
                                         Research = research,
                                         User = user,
                                         QuestionChoice = choice,
-                                        Reg_Date = DateTime.Now,
-                                        Upd_Date = DateTime.Now
                                     };
+                                    qa.SetDate();
                                     this.QuestionAnsweres.Add(qa);
                                 }
                             }
@@ -392,9 +395,8 @@ namespace GoocaBoocaDataModels
                                         FreeTest = item.Value,
                                         Question = question,
                                         User = user,
-                                        Reg_Date = DateTime.Now,
-                                        Upd_Date = DateTime.Now
                                     };
+                                    fa.SetDate();
                                     this.FreeAnsweres.Add(fa);
                                 }
                             }
@@ -474,13 +476,23 @@ namespace GoocaBoocaDataModels
 
                 foreach (var item in result_tmp)
                 {
-                    list.Add(new Tuple<string, string>(item.ItemGood.Category.ItemCategoryName, item.ItemBad.Category.ItemCategoryName));
-                    var g = item.ItemGood.Tag.Split(',');
-                    var b = item.ItemBad.Tag.Split(',');
-                    for (int i = 0; i < Math.Min(g.Length,b.Length); i++)
+                    //list.Add(new Tuple<string, string>(item.ItemGood.Category.ItemCategoryName, item.ItemBad.Category.ItemCategoryName));
+                    //var g = item.ItemGood.Tag.Split(',');
+                    //var b = item.ItemBad.Tag.Split(',');
+
+                    var atribute = from good in item.ItemGood.ItemAttribute
+                                   from bad in item.ItemBad.ItemAttribute
+                                   where good.AttributeName == bad.AttributeName && good.Value != bad.Value
+                                   select new { good = good.Value, bad = bad.Value };
+                    foreach (var pair in atribute)
                     {
-                        if(g[i] != b[i]) list.Add(new Tuple<string, string>(g[i], b[i]));
+                        list.Add(new Tuple<string, string>(pair.good, pair.bad));
                     }
+
+                    //for (int i = 0; i < Math.Min(g.Length,b.Length); i++)
+                    //{
+                    //    if(g[i] != b[i]) list.Add(new Tuple<string, string>(g[i], b[i]));
+                    //}
                 }
 
                 var result = list.GroupBy(n => new { n.Item1, n.Item2 }).Select(n => new Tuple<string, string, int, string>(n.Key.Item1, n.Key.Item2, n.Count(), Tool.GetSortText(n.Key.Item1, n.Key.Item2))).GroupBy(n => n.Item4);
