@@ -36,7 +36,8 @@ namespace GoocaBoocaBase.Controllers
             {
                 return RedirectToAction("Index", new { research_id = research_id, uid = uid });
             }
-
+            var key = db.ItemAnswerChoice.Where(n => n.Research.ResearchId == research.ResearchId && n.Tag == "Key").FirstOrDefault();
+            if(key !=null) ViewBag.KeyChoice = key.AnswerString;
             return View(db.GoocaBoocaResult(research_id, uid, this.Request.UserHostAddress));
         }
 

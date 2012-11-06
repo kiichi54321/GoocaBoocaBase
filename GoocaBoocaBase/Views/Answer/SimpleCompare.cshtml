@@ -19,7 +19,7 @@
 
 <h2>@ViewBag.QuestionText</h2>
 
-<p>回答数： @ViewBag.answerCount</p>
+<p>回答数： @ViewBag.answerCount / @ViewBag.MaxCount</p>
 
 <div>
 <a href="@Url.Action("SimpleCompare", "Answer", new { selected_image_id = ViewBag.ItemA, noSelected_image_id = ViewBag.ItemB, uid = ViewBag.uid, research_id = ViewBag.research_id })">
@@ -31,4 +31,3 @@
 </div>
 <p>画像をクリックしてください</p>
 <p> @ViewBag.Message</p>
-<p>@ViewBag.Description</p>

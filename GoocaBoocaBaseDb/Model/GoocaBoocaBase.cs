@@ -517,6 +517,10 @@ namespace GoocaBoocaDataModels
 
         }
 
+        public int GetAnswerUserCount(Research research)
+        {
+            return this.UserAnswerCompleted.Where(n => n.Research.ResearchId == research.ResearchId).Count();
+        }
     }
 
     public static class Tool

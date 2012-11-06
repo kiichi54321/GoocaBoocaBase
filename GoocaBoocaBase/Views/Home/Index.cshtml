@@ -1,26 +1,29 @@
 ﻿@{
-    ViewBag.Title = "ホーム ページ";
+    ViewBag.Title = "GoocaBooca";
 }
 @model IEnumerable<GoocaBoocaDataModels.Research>
 @using GoocaBoocaBase.Helpers
 
 <h2>GoocaBoocaへようこそ</h2>
 
+<p>GoocaBoocaは、スマートフォン・PCを使ったリサーチサイトです。</p>
+
 
 @foreach (var item in Model)
 {
-<h3>@item.ResearchName</h3>
+<h3>@item.ResearchName (@((ViewBag.DB as GoocaBoocaDataModels.GoocaBoocaDataBase).GetAnswerUserCount(item)))</h3>
     if (item.ResearchMainImage != null)
     {
         @Html.Image("", @Url.Action("Download", "Image", new { id = item.ResearchMainImage.ImageId }), item.ResearchName);
     }
-    
+    <div>@item.Description</div>
 <p>
  @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
  {
      @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", item.ResearchIdName) <input type="submit" value="送信" />     
  }
+ <br />*ユーザ名は、なんでもいいです。    
 </p>
-    
+<hr />    
 }
 

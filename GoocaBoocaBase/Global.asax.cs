@@ -53,7 +53,7 @@ namespace GoocaBoocaBase
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<GoocaBoocaDataModels.GoocaBoocaDataBase>());
 
         }
     }

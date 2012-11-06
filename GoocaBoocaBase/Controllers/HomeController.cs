@@ -11,7 +11,8 @@ namespace GoocaBoocaBase.Controllers
         public ActionResult Index()
         {
       //      ViewBag.Message = "GoocaBoocaへようこそ";
-            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();          
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            ViewBag.DB = db;
             return View(db.Researches.ToArray());
         }
 

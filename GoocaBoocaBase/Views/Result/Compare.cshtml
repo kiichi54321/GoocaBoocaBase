@@ -16,13 +16,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(n=>n.Item3 >= 0.7))
         {
             <tr>
                 <td>@Html.DisplayFor(n => item.Item1)</td>
                 <td>&gt;</td>
                 <td>@Html.DisplayFor(n => item.Item2)</td>
-                <td>@(Math.Floor(item.Item3*100)/100)</td>
+                <td class="data">@((item.Item3*100).ToString("F1"))</td>
             </tr>
         }
     </tbody>

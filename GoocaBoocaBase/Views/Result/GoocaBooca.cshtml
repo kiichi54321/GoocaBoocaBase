@@ -10,11 +10,9 @@
             <th>
                 カテゴリ
             </th>
-            @foreach (var item in Model.OrderBy(n => n.Item2.ItemAnswerChoiceId).Select(n => n.Item2.AnswerString).Distinct())
-            {
-                <th>@item
-                </th>
-            }
+             <th>
+                @ViewBag.KeyChoice 率（％）
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -23,12 +21,9 @@
             <tr>
                 <td>@item.Key.ItemCategoryName
                 </td>
-                @foreach (var item2 in item.OrderBy(n => n.Item2.ItemAnswerChoiceId))
-                {
-                    <td>
-                        @item2.Item3
-                    </td>
-                }
+                <td class="data">
+                    @((  item.Where(n => n.Item2.Tag == "Key").First().Item3 * 100 / (double)item.Sum(n => n.Item3)).ToString("F1"))
+                </td>
             </tr>
         }
     </tbody>

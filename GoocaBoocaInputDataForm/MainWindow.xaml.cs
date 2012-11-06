@@ -26,11 +26,12 @@ namespace GoocaBoocaInputDataForm
             InitializeComponent();
             if (databaseDrop)
             {
-                Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
+              //  Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             }
             else
             {
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
+
+                Database.SetInitializer(new CreateDatabaseIfNotExists<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             }
             //     Database.SetInitializer(new GoocaBoocaDataModels.CustomSeedInitializer());
             //  
@@ -93,7 +94,7 @@ namespace GoocaBoocaInputDataForm
                     ResearchType = ResearchType.GoocaBooca.ToString(),
                     Hidden = true,
                     ResearchName = "キュートモ",
-                    QuestionText = "「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」",
+                    QuestionText = "「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」", ExtendAnlyzeResultUrl = string.Empty
                 };
                 research.SetDate();
                 db.Researches.Add(research);
@@ -178,7 +179,8 @@ namespace GoocaBoocaInputDataForm
                     ResearchName = "かわいいけど、エロい？",
                     QuestionText = "かわいいけど、どっちがエロい？",
                     Reg_Date = DateTime.Now,
-                    Upd_Date = DateTime.Now
+                    Upd_Date = DateTime.Now,
+                     ExtendAnlyzeResultUrl = string.Empty
                 };
                 db.Researches.Add(research);
             }
@@ -258,7 +260,7 @@ namespace GoocaBoocaInputDataForm
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             //     Database.SetInitializer(new GoocaBoocaDataModels.CustomSeedInitializer());
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
+         //   Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             //  Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0)

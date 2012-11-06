@@ -79,7 +79,8 @@ namespace GoocaBoocaBase.Controllers
                 {
                     ViewBag.item_id = data.ImageId;
                     ViewBag.answerCount = data.AnswerCount;
-                    ViewBag.Message = data.Message;
+//                    ViewBag.Message = data.Message;
+                    ViewBag.MaxCount = research.AnswerCount;
                 }
                 else
                 {
@@ -117,6 +118,7 @@ namespace GoocaBoocaBase.Controllers
             var research = db.GetResearch(research_id);
             ViewBag.QuestionText = research.QuestionText;
             ViewBag.Description = research.Description;
+            ViewBag.MaxCount = research.AnswerCount;
             
             if (selected_image_id != null && noSelected_image_id != null)
             {
