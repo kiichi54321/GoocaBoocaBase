@@ -20,7 +20,7 @@
 <p>回答数： @ViewBag.answerCount / @ViewBag.MaxCount</p>
 <p>@ViewBag.Description</p>
 <div>
-@Html.Image("hoge", @Url.Action("ItemDownload", "Image", new { id = ViewBag.item_id.ToString() }), "MainImage")
+<img src="@ViewBag.ImageUrl" alt="MainImage" />
 </div>
 <div>
 <ul id="answerChoice">

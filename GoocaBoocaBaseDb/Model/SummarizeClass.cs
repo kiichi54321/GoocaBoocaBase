@@ -5,7 +5,10 @@ using System.Text;
 
 namespace GoocaBoocaDataModel.Model
 {
-    class SummarizeClass
+    public class SummarizeCompletedUser
     {
+        public DateTime DateTime { get; set; }
+        public int SumCount { get; set; }
+        public IEnumerable<int> CountList { get; set; }
     }
 }

@@ -165,7 +165,9 @@ namespace GoocaBoocaDataModels
 
             if (diff.Any())
             {
-                data.ImageId = diff.Where(n => list.Contains(n.Category.ItemCategoryId) == false).OrderBy(n => Guid.NewGuid()).First().ItemId;
+                var a = diff.Where(n => list.Contains(n.Category.ItemCategoryId) == false).OrderBy(n => Guid.NewGuid()).First();
+                data.ImageId = a.ItemId;
+                data.ImageUrl = research.Tag + a.ItemName;
                 data.Success = true;
                 return data;
             }
@@ -179,6 +181,7 @@ namespace GoocaBoocaDataModels
         public struct ImageDataStruct
         {
             public int ImageId { get; set; }
+            public string ImageUrl { get; set; }
             public int AnswerCount { get; set; }
             public bool Success { get; set; }
             public string Message { get; set; }
@@ -188,6 +191,9 @@ namespace GoocaBoocaDataModels
         {
             public int ImageAId { get; set; }
             public int ImageBId { get; set; }
+            public string ImageAUrl { get; set; }
+            public string ImageBUrl { get; set; }
+
             public int AnswerCount { get; set; }
             public bool Success { get; set; }
             public bool Completed { get; set; }
@@ -228,7 +234,20 @@ namespace GoocaBoocaDataModels
                     if (key != null)
                     {
                         var keys = key.Split('_').OrderBy(n => Guid.NewGuid()).ToArray();
-                        return new ImageCompareStruct() { ImageAId = int.Parse(keys.First()), ImageBId = int.Parse(keys.Last()), Success = true, AnswerCount = itemCompareAnsweres.Count(), Completed = false };
+                        var Aid = int.Parse(keys.First());
+                        var Bid = int.Parse(keys.Last());
+
+
+                        return new ImageCompareStruct()
+                        {
+                            ImageAId = Aid,
+                            ImageBId = Bid,
+                            Success = true,
+                            AnswerCount = itemCompareAnsweres.Count(),
+                            Completed = false,
+                            ImageAUrl = research.Tag + this.Items.Where(n => n.ItemId == Aid).First().ItemName,
+                            ImageBUrl = research.Tag + this.Items.Where(n => n.ItemId == Bid).First().ItemName
+                        };
                     }
 
                 }
@@ -536,15 +555,18 @@ namespace GoocaBoocaDataModels
             {
                 var resutl = this.ItemAttributes.Where(n => n.Value == item).Select(n => n.Item);
 
-                var r2 = resutl.Where(n=>n.Tag.Contains("Key")).FirstOrDefault();
-                if (r2 == null) 
+                var r2 = resutl.Where(n => n.Tag.Contains("Key")).FirstOrDefault();
+                if (r2 == null)
                 {
-                    r2 = resutl.OrderBy(n => Guid.NewGuid()).FirstOrDefault();                        
+                    r2 = resutl.OrderBy(n => Guid.NewGuid()).FirstOrDefault();
                 }
                 if (r2 != null) list.Add(r2);
             }
             return list;
         }
+
+
+
     }
 
     public static class Tool
@@ -606,12 +628,12 @@ namespace GoocaBoocaDataModels
                 list.Add(new Tuple<List<string>, double>(new List<string>() { item.Item1, item.Item2 }, item.Item3));
             }
 
-           // while (true)
+            // while (true)
             int tmpListCount = list.Count;
             for (int i = 0; i < 3; i++)
             {
                 tmpListCount = list.Count;
-                
+
                 List<Tuple<List<string>, double>> tmp = new List<Tuple<List<string>, double>>(list);
                 bool flag = false;
                 foreach (var item in list)
@@ -627,7 +649,7 @@ namespace GoocaBoocaDataModels
                                 tmp.Remove(item2);
                                 flag = true;
                             }
-                            if (item.Item1.Count == item2.Item1.Count && item.Item1.Count>2)
+                            if (item.Item1.Count == item2.Item1.Count && item.Item1.Count > 2)
                             {
                                 if (ContainList(item.Item1.Skip(1), item2.Item1.Take(item2.Item1.Count - 1)))
                                 {
@@ -694,20 +716,13 @@ namespace GoocaBoocaDataModels
 
         public static bool ContainList(IEnumerable<string> main, IEnumerable<string> sub)
         {
-            string first = string.Empty;
-            LinkedList<string> list1 = new LinkedList<string>(main);
             LinkedList<string> list2 = new LinkedList<string>(sub);
-            while (true)
+            foreach (var item in main)
             {
-                if (list1.First.Value == list2.First.Value)
+                if (item == list2.First.Value)
                 {
                     list2.RemoveFirst();
-                }
-                list1.RemoveFirst();
-
-                if (list1.Count == 0 || list2.Count == 0)
-                {
-                    break;
+                    if (list2.Any() == false) break;
                 }
             }
             if (list2.Count == 0)
@@ -715,7 +730,6 @@ namespace GoocaBoocaDataModels
                 return true;
             }
             return false;
-
         }
     }
 

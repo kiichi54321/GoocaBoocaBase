@@ -40,5 +40,10 @@ namespace GoocaBoocaBase.Controllers
 
         }
 
+        public ActionResult ViewCompletedUserByHour()
+        {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            return View(db.QuestionAnsweres.ToArray());
+        }
     }
 }

@@ -78,6 +78,7 @@ namespace GoocaBoocaBase.Controllers
                 if (data.Success)
                 {
                     ViewBag.item_id = data.ImageId;
+                    ViewBag.ImageUrl = data.ImageUrl;
                     ViewBag.answerCount = data.AnswerCount;
 //                    ViewBag.Message = data.Message;
                     ViewBag.MaxCount = research.AnswerCount;
@@ -130,6 +131,8 @@ namespace GoocaBoocaBase.Controllers
             {
                 ViewBag.ItemA = data.ImageAId;
                 ViewBag.ItemB = data.ImageBId;
+                ViewBag.ImageAUrl = data.ImageAUrl;
+                ViewBag.ImageBUrl = data.ImageBUrl;
                 ViewBag.Message = data.Message;
                 ViewBag.answerCount = data.AnswerCount;
             }
