@@ -56,7 +56,7 @@ namespace GoocaBoocaDataModels
                     ItemAnswerChoice = choice,
                     ItemCategory = item.Category,
                     Research = research,
-                    User = user, 
+                    User = user,
                 };
                 answer.SetDate();
                 this.ItemAnsweres.Add(answer);
@@ -147,8 +147,8 @@ namespace GoocaBoocaDataModels
             if (data.AnswerCount == research.AnswerCount)
             {
                 data.Success = false;
-                this.UserAnswerCompleted.Add(new UserAnswerCompleted() { Research = research, User = user, Reg_Date = DateTime.Now, IsActive = true, Upd_Date = DateTime.Now });
-                this.SaveChanges();
+                //this.UserAnswerCompleted.Add(new UserAnswerCompleted() { Research = research, User = user, Reg_Date = DateTime.Now, IsActive = true, Upd_Date = DateTime.Now });
+                //this.SaveChanges();
                 return data;
             }
 
@@ -234,13 +234,13 @@ namespace GoocaBoocaDataModels
                 }
                 else
                 {
-                    if (user != null)
-                    {
-                        var ua = new UserAnswerCompleted() { Research = research, User = user };
-                        ua.SetDate();
-                        this.UserAnswerCompleted.Add(ua);
-                    }
-                    this.SaveChanges();
+                    //if (user != null)
+                    //{
+                    //    var ua = new UserAnswerCompleted() { Research = research, User = user };
+                    //    ua.SetDate();
+                    //    this.UserAnswerCompleted.Add(ua);
+                    //}
+                    //this.SaveChanges();
                     return new ImageCompareStruct() { Completed = true, Success = true };
                 }
 
@@ -307,11 +307,11 @@ namespace GoocaBoocaDataModels
             //var user = this.Users.Where(n => n.UserName == userName).FirstOrDefault();
             //if (user == null)
             {
-              var  user = new User()
-                {
-                    UserName = userName,
-                };
-              user.SetDate();
+                var user = new User()
+                  {
+                      UserName = userName,
+                  };
+                user.SetDate();
                 this.Users.Add(user);
                 this.SaveChanges();
                 return Tool.ChangeUserId(user.UserId, ip);
@@ -403,6 +403,12 @@ namespace GoocaBoocaDataModels
                         }
                     }
                 }
+                if (user != null)
+                {
+                    var ua = new UserAnswerCompleted() { Research = research, User = user };
+                    ua.SetDate();
+                    this.UserAnswerCompleted.Add(ua);
+                }
                 this.SaveChanges();
                 return true;
             }
@@ -447,7 +453,7 @@ namespace GoocaBoocaDataModels
 
             if (research != null && user != null)
             {
-                var result_tmp = this.ItemAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId).GroupBy(n => new { n.ItemCategory, n.ItemAnswerChoice }).Select(n => new { ItemCategory = n.Key.ItemCategory, ItemAnswerChoice = n.Key.ItemAnswerChoice, Count = n.Count() }).OrderBy(n=>n.ItemCategory.ItemCategoryId).ThenBy(n=>n.ItemAnswerChoice.ItemAnswerChoiceId) ;
+                var result_tmp = this.ItemAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId).GroupBy(n => new { n.ItemCategory, n.ItemAnswerChoice }).Select(n => new { ItemCategory = n.Key.ItemCategory, ItemAnswerChoice = n.Key.ItemAnswerChoice, Count = n.Count() }).OrderBy(n => n.ItemCategory.ItemCategoryId).ThenBy(n => n.ItemAnswerChoice.ItemAnswerChoiceId);
                 var answerPattern = from choice in this.ItemAnswerChoice.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
                                     from category in this.ItemCategories.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
                                     select new { Category = category, Choice = choice };
@@ -456,7 +462,7 @@ namespace GoocaBoocaDataModels
                              join userAnswer in result_tmp
                                 on new { ap.Category.ItemCategoryId, ap.Choice.ItemAnswerChoiceId } equals new { userAnswer.ItemCategory.ItemCategoryId, userAnswer.ItemAnswerChoice.ItemAnswerChoiceId } into z
                              from a in z.DefaultIfEmpty()
-                             select new { ap.Category, ap.Choice,Count = (a == null) ? 0 : a.Count };
+                             select new { ap.Category, ap.Choice, Count = (a == null) ? 0 : a.Count };
 
                 return result.OrderBy(n => n.Category.ItemCategoryId).ThenBy(n => n.Choice.ItemAnswerChoiceId).ToArray().Select(item => new Tuple<ItemCategory, ItemAnswerChoice, int>(item.Category, item.Choice, item.Count));
 
@@ -472,7 +478,7 @@ namespace GoocaBoocaDataModels
             if (research != null && user != null)
             {
                 var result_tmp = this.ItemCompareAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId);
-                List<Tuple<string, string>> list = new List<Tuple<string, string>>(); 
+                List<Tuple<string, string>> list = new List<Tuple<string, string>>();
 
                 foreach (var item in result_tmp)
                 {
@@ -507,10 +513,10 @@ namespace GoocaBoocaDataModels
                     }
                     else
                     {
-                        list2.Add(new Tuple<string, string, double>(tmp.First().Item1, tmp.First().Item2,  (double)tmp.First().Item3 / (double)(tmp.First().Item3)));
+                        list2.Add(new Tuple<string, string, double>(tmp.First().Item1, tmp.First().Item2, (double)tmp.First().Item3 / (double)(tmp.First().Item3)));
                     }
                 }
-                return list2.OrderByDescending(n=>n.Item3);
+                return list2.OrderByDescending(n => n.Item3);
             }
 
             return new List<Tuple<string, string, double>>();
@@ -520,6 +526,24 @@ namespace GoocaBoocaDataModels
         public int GetAnswerUserCount(Research research)
         {
             return this.UserAnswerCompleted.Where(n => n.Research.ResearchId == research.ResearchId).Count();
+        }
+
+        public IEnumerable<Item> GetItemSelectedByAttribute(IEnumerable<string> attributeList)
+        {
+            List<Item> list = new List<Item>();
+
+            foreach (var item in attributeList)
+            {
+                var resutl = this.ItemAttributes.Where(n => n.Value == item).Select(n => n.Item);
+
+                var r2 = resutl.Where(n=>n.Tag.Contains("Key")).FirstOrDefault();
+                if (r2 == null) 
+                {
+                    r2 = resutl.OrderBy(n => Guid.NewGuid()).FirstOrDefault();                        
+                }
+                if (r2 != null) list.Add(r2);
+            }
+            return list;
         }
     }
 
@@ -553,12 +577,14 @@ namespace GoocaBoocaDataModels
 
         }
 
-        public static IEnumerable<Tuple<IEnumerable<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source,double minValue)
+        public static IEnumerable<Tuple<List<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source, double minValue)
         {
+            //最小値よりも大きいペア集合
             var data = source.Where(n => n.Item3 >= minValue);
+            //大きいものをグループ化して、２つ以上あるもの。
             var data2 = data.GroupBy(n => n.Item1).Where(n => n.Count() > 1);
 
-
+            //２つの関係から３つの関係を作る。
             List<Tuple<List<string>, double>> list = new List<Tuple<List<string>, double>>();
             foreach (var item in data2)
             {
@@ -569,15 +595,128 @@ namespace GoocaBoocaDataModels
                         if (item2.Item2 != item3.Item2)
                         {
                             var d = data.Where(n => n.Item1 == item2.Item2 && n.Item2 == item3.Item2).FirstOrDefault();
-                            if(d !=null) list.Add(new Tuple< List<string>,double>(new List<string>(){item.Key,item2.Item2,item3.Item2},item2.Item3*item3.Item3*d.Item3));
-                            
+                            if (d != null) list.Add(new Tuple<List<string>, double>(new List<string>() { item.Key, item2.Item2, item3.Item2 }, Math.Min(item2.Item3, Math.Min(item3.Item3, d.Item3))));
                         }
                     }
                 }
             }
-            return null;
+            //２つの関係も追加しておく。
+            foreach (var item in data)
+            {
+                list.Add(new Tuple<List<string>, double>(new List<string>() { item.Item1, item.Item2 }, item.Item3));
+            }
+
+           // while (true)
+            int tmpListCount = list.Count;
+            for (int i = 0; i < 3; i++)
+            {
+                tmpListCount = list.Count;
+                
+                List<Tuple<List<string>, double>> tmp = new List<Tuple<List<string>, double>>(list);
+                bool flag = false;
+                foreach (var item in list)
+                {
+                    foreach (var item2 in list)
+                    {
+                        //同じ物は無視
+                        if (EqualList(item.Item1, item2.Item1) == false)
+                        {
+                            //item2がitemに含まれている関係なら排除
+                            if (ContainList(item.Item1, item2.Item1))
+                            {
+                                tmp.Remove(item2);
+                                flag = true;
+                            }
+                            if (item.Item1.Count == item2.Item1.Count && item.Item1.Count>2)
+                            {
+                                if (ContainList(item.Item1.Skip(1), item2.Item1.Take(item2.Item1.Count - 1)))
+                                {
+                                    Tuple<List<string>, double> t = new Tuple<List<string>, double>(new List<string>(item.Item1), Math.Min(item.Item2, item2.Item2));
+                                    t.Item1.Add(item2.Item1.Last());
+                                    tmp.Add(t);
+                                    flag = true;
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                list = new List<Tuple<List<string>, double>>();
+
+                foreach (var item in tmp)
+                {
+                    bool flag2 = true;
+                    foreach (var item2 in list)
+                    {
+                        if (EqualList(item.Item1, item2.Item1))
+                        {
+                            flag2 = false;
+                            break;
+                        }
+                    }
+                    if (flag2) list.Add(item);
+                }
+
+                if (tmpListCount == list.Count) break;
+
+                if (flag == false) break;
+            }
+
+            return list.OrderByDescending(n => n.Item1.Count).ThenBy(n => n.Item1.FirstOrDefault()).ToArray();
         }
 
+        public static bool EqualList(IEnumerable<string> main, IEnumerable<string> sub)
+        {
+            if (main.Count() != sub.Count()) return false;
+            LinkedList<string> list = new LinkedList<string>(sub);
+            foreach (var item in main)
+            {
+                if (item == list.First.Value)
+                {
+                    list.RemoveFirst();
+                    if (list.Any() == false)
+                    {
+                        if (item != main.Last())
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public static bool ContainList(IEnumerable<string> main, IEnumerable<string> sub)
+        {
+            string first = string.Empty;
+            LinkedList<string> list1 = new LinkedList<string>(main);
+            LinkedList<string> list2 = new LinkedList<string>(sub);
+            while (true)
+            {
+                if (list1.First.Value == list2.First.Value)
+                {
+                    list2.RemoveFirst();
+                }
+                list1.RemoveFirst();
+
+                if (list1.Count == 0 || list2.Count == 0)
+                {
+                    break;
+                }
+            }
+            if (list2.Count == 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
     }
 
     public class CustomSeedInitializer : DropCreateDatabaseAlways<GoocaBoocaDataBase>

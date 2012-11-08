@@ -1,9 +1,40 @@
 ﻿@{
     ViewBag.Title = "GoocaBooca結果";
 }
+@{HtmlString h = new HtmlString(ViewBag.CategoryList); }
+
+@section ScriptCss
+{
+    <script src="@Url.Content("~/Scripts/radar.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+    window.onload = function () {
+        var rc = new html5jp.graph.radar("sample");
+        if (!rc) { return; }
+
+
+        var items = [
+    ["You",@ViewBag.StringData]
+  ];
+        var params = {
+            aCap: [@h],
+            aMax: 100,
+            aMin: 0 ,
+            faceColors: ["rgb(198,0,148)", "olive"],
+            backgroundColor:"#ffffff",
+            cBackgroundColor:"#ffffff",
+            cBackgroundGradation:false
+
+    }
+        rc.draw(items, params);
+    };
+    </script>
+
+}
 @model IEnumerable<Tuple<GoocaBoocaDataModels.ItemCategory, GoocaBoocaDataModels.ItemAnswerChoice, int>>
-<h2>
-    GoocaBooca結果</h2>
+<h2>「@ViewBag.ResearchName」結果</h2>
+
+<div><canvas width="350" height="250" id="sample"></canvas></div>
 <table>
     <thead>
         <tr>
@@ -28,3 +59,5 @@
         }
     </tbody>
 </table>
+
+
