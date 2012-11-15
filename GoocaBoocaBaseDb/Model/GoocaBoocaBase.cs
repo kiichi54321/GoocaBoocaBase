@@ -10,7 +10,7 @@ namespace GoocaBoocaDataModels
     public class GoocaBoocaDataBase : DbContext
     {
         public GoocaBoocaDataBase()
-            : base(Secret.connectionString)
+            : base(KenGLab.Secret.CreateConnectionString("GoocaBoocaBase"))
         {
         }
 

@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "ViewFreeAnswer";
+}
+@model IEnumerable<GoocaBoocaDataModels.FreeAnswer>
+<h2>ViewFreeAnswer</h2>
+
+@foreach (var item in Model.GroupBy(n=>n.Question))
+{
+    <h3> @item.Key.QuestionName</h3>
+    <ul>
+    @foreach (var item2 in item)
+    {
+        if (item2.FreeTest.Length > 0)
+        {
+        <li>@item2.FreeTest (@item2.Reg_Date.ToShortDateString())</li>
+        }
+    }
+    </ul>
+}

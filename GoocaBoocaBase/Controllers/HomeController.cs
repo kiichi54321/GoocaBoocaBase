@@ -8,6 +8,7 @@ namespace GoocaBoocaBase.Controllers
 {
     public class HomeController : Controller
     {
+        [HandleError]
         public ActionResult Index()
         {
       //      ViewBag.Message = "GoocaBoocaへようこそ";
@@ -44,6 +45,12 @@ namespace GoocaBoocaBase.Controllers
         {
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             return View(db.QuestionAnsweres.ToArray());
+        }
+
+        public ActionResult ViewFreeAnswer()
+        {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            return View(db.FreeAnsweres.ToArray());
         }
     }
 }
