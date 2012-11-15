@@ -69,3 +69,4 @@ UpgradeLog.XML
 _UpgradeReport_Files/
 RawlerSample/
 Secret.cs
+*.Publish.xml
