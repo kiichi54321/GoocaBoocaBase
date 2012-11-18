@@ -1,0 +1,25 @@
+﻿@model GoocaBoocaBase.Models.AnalyzeIndexModel
+
+@{
+    ViewBag.Title = "分析ページ";
+}
+
+<h2>分析ページ</h2>
+
+<table>
+@foreach (var item in Model.Researches)
+{
+    <tr>
+    @if (item.ResearchType == "GoocaBooca")
+    {
+        <td>@Html.ActionLink(item.ResearchName, "goocabooca", new { researchId = item.ResearchIdName }) </td>
+    }
+    else
+    {
+        <td>@Html.ActionLink(item.ResearchName,"Compare", new { researchId = item.ResearchIdName })</td>        
+    }
+    <td>@item.Description </td>
+
+    </tr>
+}
+</table>

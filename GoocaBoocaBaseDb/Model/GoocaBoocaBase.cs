@@ -499,12 +499,9 @@ namespace GoocaBoocaDataModels
                 var result_tmp = this.ItemCompareAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId);
                 List<Tuple<string, string>> list = new List<Tuple<string, string>>();
 
+                //属性の大小関係書き出し
                 foreach (var item in result_tmp)
                 {
-                    //list.Add(new Tuple<string, string>(item.ItemGood.Category.ItemCategoryName, item.ItemBad.Category.ItemCategoryName));
-                    //var g = item.ItemGood.Tag.Split(',');
-                    //var b = item.ItemBad.Tag.Split(',');
-
                     var atribute = from good in item.ItemGood.ItemAttribute
                                    from bad in item.ItemBad.ItemAttribute
                                    where good.AttributeName == bad.AttributeName && good.Value != bad.Value
@@ -513,13 +510,8 @@ namespace GoocaBoocaDataModels
                     {
                         list.Add(new Tuple<string, string>(pair.good, pair.bad));
                     }
-
-                    //for (int i = 0; i < Math.Min(g.Length,b.Length); i++)
-                    //{
-                    //    if(g[i] != b[i]) list.Add(new Tuple<string, string>(g[i], b[i]));
-                    //}
                 }
-
+                //ペアの組み合わせの数をかぞえる。
                 var result = list.GroupBy(n => new { n.Item1, n.Item2 }).Select(n => new Tuple<string, string, int, string>(n.Key.Item1, n.Key.Item2, n.Count(), Tool.GetSortText(n.Key.Item1, n.Key.Item2))).GroupBy(n => n.Item4);
 
                 List<Tuple<string, string, double>> list2 = new List<Tuple<string, string, double>>();
@@ -541,6 +533,9 @@ namespace GoocaBoocaDataModels
             return new List<Tuple<string, string, double>>();
 
         }
+
+
+
 
         public int GetAnswerUserCount(Research research)
         {
@@ -601,6 +596,10 @@ namespace GoocaBoocaDataModels
 
         public static IEnumerable<Tuple<List<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source, double minValue)
         {
+            return ConverMuitiRelation(source, minValue, true);
+        }
+        public static IEnumerable<Tuple<List<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source, double minValue,bool distinct)
+        {
             //最小値よりも大きいペア集合
             var data = source.Where(n => n.Item3 >= minValue);
             //大きいものをグループ化して、２つ以上あるもの。
@@ -644,10 +643,13 @@ namespace GoocaBoocaDataModels
                         if (EqualList(item.Item1, item2.Item1) == false)
                         {
                             //item2がitemに含まれている関係なら排除
-                            if (ContainList(item.Item1, item2.Item1))
+                            if (distinct)
                             {
-                                tmp.Remove(item2);
-                                flag = true;
+                                if (ContainList(item.Item1, item2.Item1))
+                                {
+                                    tmp.Remove(item2);
+                                    flag = true;
+                                }
                             }
                             if (item.Item1.Count == item2.Item1.Count && item.Item1.Count > 2)
                             {

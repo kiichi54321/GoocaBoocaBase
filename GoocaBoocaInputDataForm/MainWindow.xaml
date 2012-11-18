@@ -47,6 +47,11 @@
                     <Button Content="メイン画像のUP" Height="23" HorizontalAlignment="Left" Margin="206,4,0,0" Name="button8" VerticalAlignment="Top" Width="155" Click="button8_Click" />
                 </Grid>
             </TabItem>
+            <TabItem Header="tabItem3" Name="tabItem3">
+                <Grid>
+                    <Button Content="データの書き出し" Height="23" HorizontalAlignment="Left" Margin="7,6,0,0" Name="button9" VerticalAlignment="Top" Width="199" Click="button9_Click" />
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

@@ -24,19 +24,101 @@ namespace GoocaBoocaInputDataForm
         public MainWindow()
         {
             InitializeComponent();
-            if (databaseDrop)
-            {
-              //  Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
-            }
-            else
-            {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<GoocaBoocaDataModels.GoocaBoocaDataBase>());
 
-                Database.SetInitializer(new CreateDatabaseIfNotExists<GoocaBoocaDataModels.GoocaBoocaDataBase>());
-            }
-            //     Database.SetInitializer(new GoocaBoocaDataModels.CustomSeedInitializer());
-            //  
-            //  
+
         }
+
+
+
+
+        public static string ObjectPropertiesString(object obj)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(obj.GetType().ToString() + "¥n");
+
+            //プロパティを列挙する。
+            System.Reflection.PropertyInfo[] properties = obj.GetType().GetProperties();
+            for (int i = 0; i < properties.Length; i++)
+            {
+                //読込み可能なプロパティのみを対象とする。
+                if (properties[i].CanRead)
+                {
+                    System.Reflection.ParameterInfo[] param =
+                             properties[i].GetGetMethod().GetParameters();
+                    if ((param != null) && (param.Length > 0))
+                    {
+                        continue;
+                    }
+
+                    //プロパティから値を取得し、その文字列表記を保存する。
+                    object v = properties[i].GetValue(obj, null);
+
+                    sb.Append(properties[i].Name);
+                    sb.Append(" = ");
+                    sb.Append("¥'" + v.ToString() + "¥'¥n");
+
+                }
+            }
+
+            return sb.ToString();
+        }
+
+
+        public static void ObjectListToCsv<T>(IEnumerable<T> list, string fileName)
+        {
+            var baseObj = list.FirstOrDefault();
+            if (baseObj == null) return;
+
+            using (var file = System.IO.File.CreateText(fileName))
+            {
+                System.Reflection.PropertyInfo[] properties = baseObj.GetType().GetProperties();
+                for (int i = 0; i < properties.Length; i++)
+                {
+                    if (properties[i].CanRead)
+                    {
+                        if (properties[i].PropertyType.Equals(typeof(byte[])) == false)
+                        {
+                            file.Write(properties[i].Name + "\t");
+                        }
+                    }
+                }
+                file.WriteLine();
+                foreach (var item in list)
+                {
+                    properties = item.GetType().GetProperties();
+                    for (int i = 0; i < properties.Length; i++)
+                    {
+                        //読込み可能なプロパティのみを対象とする。
+                        if (properties[i].CanRead)
+                        {
+                            System.Reflection.ParameterInfo[] param =
+                                     properties[i].GetGetMethod().GetParameters();
+ 
+                            //プロパティから値を取得し、その文字列表記を保存する。
+                            object v = properties[i].GetValue(item, null);
+                            if (v != null)
+                            {
+                                file.Write(v.ToString() + "\t");
+                            }
+                            else
+                            {
+                                file.Write("\t");
+                            }
+                        }
+                    }
+                    file.WriteLine();
+                }
+            }
+        }
+
+
+
+
+
+
+
+
 
         bool databaseDrop = false;
 
@@ -94,7 +176,8 @@ namespace GoocaBoocaInputDataForm
                     ResearchType = ResearchType.GoocaBooca.ToString(),
                     Hidden = true,
                     ResearchName = "キュートモ",
-                    QuestionText = "「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」", ExtendAnlyzeResultUrl = string.Empty
+                    QuestionText = "「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」",
+                    ExtendAnlyzeResultUrl = string.Empty
                 };
                 research.SetDate();
                 db.Researches.Add(research);
@@ -180,7 +263,7 @@ namespace GoocaBoocaInputDataForm
                     QuestionText = "かわいいけど、どっちがエロい？",
                     Reg_Date = DateTime.Now,
                     Upd_Date = DateTime.Now,
-                     ExtendAnlyzeResultUrl = string.Empty
+                    ExtendAnlyzeResultUrl = string.Empty
                 };
                 db.Researches.Add(research);
             }
@@ -227,11 +310,11 @@ namespace GoocaBoocaInputDataForm
                 foreach (var tags in tag.Split(','))
                 {
                     var attribute = tags.Split(':');
-                    var a =  attribute.First();
+                    var a = attribute.First();
                     var attributeData = db.ItemAttributes.Where(n => n.Item.ItemId == itemdata.ItemId && n.AttributeName == a).FirstOrDefault();
                     if (attributeData == null)
                     {
-                        attributeData = new ItemAttribute() { AttributeName = a, Item = itemdata,AttributeCategory = string.Empty };
+                        attributeData = new ItemAttribute() { AttributeName = a, Item = itemdata, AttributeCategory = string.Empty };
                         attributeData.SetDate();
                         db.ItemAttributes.Add(attributeData);
                     }
@@ -259,9 +342,6 @@ namespace GoocaBoocaInputDataForm
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //     Database.SetInitializer(new GoocaBoocaDataModels.CustomSeedInitializer());
-         //   Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GoocaBoocaDataModels.GoocaBoocaDataBase>());
-            //  Database.SetInitializer(new DropCreateDatabaseAlways<GoocaBoocaDataModels.GoocaBoocaDataBase>());
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0)
             {
@@ -323,6 +403,28 @@ namespace GoocaBoocaInputDataForm
                 }
             }
             MessageBox.Show("Fales");
+
+        }
+
+        private void button9_Click(object sender, RoutedEventArgs e)
+        {
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+
+            ObjectListToCsv<User>(db.Users.ToArray(), "user.tsv");
+            ObjectListToCsv<Item>(db.Items.ToArray(), "item.tsv");
+            ObjectListToCsv<ItemAnswerChoice>(db.ItemAnswerChoice.ToArray(), "ItemAnswerChoice.tsv");
+            ObjectListToCsv<ItemAnswer>(db.ItemAnsweres.ToArray(), "ItemAnsweres.tsv");
+            ObjectListToCsv<ItemAttribute>(db.ItemAttributes.ToArray(), "ItemAttributes.tsv");
+            ObjectListToCsv<ItemCategory>(db.ItemCategories.ToArray(), "ItemCategories.tsv");
+            ObjectListToCsv<ItemCompareAnswer>(db.ItemCompareAnsweres.ToArray(), "ItemCompareAnsweres.tsv");
+            ObjectListToCsv<QuestionAnswer>(db.QuestionAnsweres.ToArray(), "QuestionAnswer.tsv");
+            ObjectListToCsv<QuestionAttribute>(db.QuestionAttribute.ToArray(), "QuestionAttribute.tsv");
+            ObjectListToCsv<QuestionChoice>(db.QuestionChoices.ToArray(), "QuestionChoices.tsv");
+            ObjectListToCsv<UserAnswerCompleted>(db.UserAnswerCompleted.ToArray(), "UserAnswerCompleted.tsv");
+            ObjectListToCsv<Question>(db.Questiones.ToArray(), "Questiones.tsv");
+            ObjectListToCsv<FreeAnswer>(db.FreeAnsweres.ToArray(), "FreeAnsweres.tsv");
+
+            MessageBox.Show("end");
 
         }
 

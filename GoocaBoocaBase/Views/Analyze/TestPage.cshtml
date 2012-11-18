@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "TestPage";
+}
+@model IEnumerable<Tuple<GoocaBoocaDataModels.Item,double>>
+<h2>TestPage</h2>
+
+<h3>
+@ViewBag.Choice1 @ViewBag.Choice2 @ViewBag.Choice3
+</h3>
+@if (Model != null)
+{
+<table>
+@foreach (var item in Model.OrderByDescending(n => n.Item2))
+{
+    <tr><td>@item.Item1.Category.ItemCategoryName</td>
+    <td>@item.Item1.ItemName</td>
+    <td>@item.Item2</td></tr>
+}
+</table>
+}

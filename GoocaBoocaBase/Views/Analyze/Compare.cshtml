@@ -1,0 +1,47 @@
+﻿@model GoocaBoocaBase.Models.AnalyzeCompareModel
+@{
+    ViewBag.Title = "Compare";
+}
+@section ScriptCss
+{
+}
+<h2>Compare</h2>
+
+<h2>全体の質問の回答集計</h2>
+            <table>
+                @foreach (var item3 in Model.ALLQuestionResult.GroupBy(n => n.Item1.Question).OrderBy(n=>n.Key.QuestionId))
+                {
+                    <tr><th> @item3.Key.QuestionName</th><td>  </td>
+                    @foreach (var item4 in item3.OrderBy(n=>n.Item1.QuestionChoiceId))
+                    {
+                        <th> @item4.Item1.QuestionChoiceText</th><td class='data'> @(((double)item4.Item2 * 100 / (double)item3.Sum(n=>n.Item2)).ToString("F1")) %</td>
+                    }
+</tr>                
+                }
+                </table>
+
+
+
+@foreach (var item in Model.Result.GroupBy(n => n.AttributeOrder.First()).OrderByDescending(n => n.Sum(m => m.Count)))
+{
+    <h3>@item.Key</h3>
+    <dl>
+        @foreach (var item2 in item.Where(n=>n.Count >=10).OrderBy(n => n.AttributeOrder.Count).ThenByDescending(n => n.Rate))
+        {
+            <dt onclick=' '>@item2.AttributeOrder.Aggregate((n, m) => n + ">" + m) (@item2.Rate.ToString("F1")%)</dt>
+            <dd id = '@item2.Id' >
+            <table>
+                @foreach (var item3 in item2.QuestionAnswer.GroupBy(n => n.Item1.Question).OrderBy(n=>n.Key.QuestionId))
+                {
+                    <tr><th> @item3.Key.QuestionName</th><td>  </td>
+                    @foreach (var item4 in item3.OrderBy(n=>n.Item1.QuestionChoiceId))
+                    {
+                        <th> @item4.Item1.QuestionChoiceText</th><td class='data'> @(((double)item4.Item2 * 100 / (double)item3.Sum(n=>n.Item2)).ToString("F1")) %</td>
+                    }
+</tr>                
+                }
+                </table>
+            </dd>
+        }
+    </dl>
+}
