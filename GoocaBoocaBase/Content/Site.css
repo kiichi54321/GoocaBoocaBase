@@ -429,3 +429,21 @@ ul#answerChoice li.selected a
     background-color: #fff;
     color: #000;
 }
+
+        .keion
+        {
+            background-color: White;
+            border-color:Black;
+            border-width:2px;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            float: left;
+            width: 160px;
+        }
+        
+        .All
+        {
+            background-color: White;
+        	width:100%;
+        }

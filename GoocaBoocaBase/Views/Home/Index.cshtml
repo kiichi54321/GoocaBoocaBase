@@ -9,7 +9,7 @@
 <p>GoocaBoocaは、スマートフォン・PCを使ったリサーチサイトです。</p>
 
 
-@foreach (var item in Model)
+@foreach (var item in Model.Where(n=>n.Hidden == false))
 {
 <h3>@item.ResearchName (@((ViewBag.DB as GoocaBoocaDataModels.GoocaBoocaDataBase).GetAnswerUserCount(item)))</h3>
     if (item.ResearchMainImage != null)

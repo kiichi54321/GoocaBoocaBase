@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "集計";
+}
+@model IEnumerable<GoocaBoocaBase.Controllers.AnalyzeController.CountData2>
+<h2>
+    クロス集計</h2>
+    <div class="All">
+@foreach (var item0 in Model.GroupBy(n => n.UserData.gender).OrderByDescending(n=>n.Key))
+{
+    <div style="width:1100px;">
+    <h3>@item0.Key</h3>
+  
+    @foreach (var item in item0.GroupBy(n => n.Item.Category.ItemCategoryName).OrderBy(n=>n.Key))
+    {
+    <div class="keion">
+          <h3>@item.Key</h3>
+
+    <table>
+    <caption align="top">平均</caption>
+    <tr><th></th>　<th>2次元</th><th>3次元</th></tr>
+      <tr><th>草食</th><td>@item.AsParallel().Where(n => n.UserData.niku == "草食" && n.UserData.keion == "はい").Average(n => n.Rate * 100).ToString("F1")</td><td>@item.AsParallel().Where(n => n.UserData.niku == "草食" && n.UserData.keion == "いいえ").Average(n => n.Rate * 100).ToString("F1")</td></tr>
+  <tr><th>肉食</th>　<td>@item.AsParallel().Where(n => n.UserData.niku == "肉食" && n.UserData.keion == "はい").Average(n => n.Rate * 100).ToString("F1")</td><td>@item.AsParallel().Where(n => n.UserData.niku == "肉食" && n.UserData.keion == "いいえ").Average(n => n.Rate * 100).ToString("F1")</td></tr>
+    </table>
+    
+        @foreach (var item2 in item.GroupBy(n=>n.Item.ItemName).OrderBy(n=>n.Key))
+        {
+            <img src="@("http://web.sfc.keio.ac.jp/~kiichi/ORF2012/kawaero2012/"+item2.Key)" alt="@item2.Key" width="100px" style="margin-top:15px;margin-left:2px;"/>
+    <table>
+    <tr><th></th>　<th>2次元</th><th>3次元</th></tr>
+    <tr><th>草食</th><td>@item2.AsParallel().Where(n => n.UserData.niku == "草食" && n.UserData.keion == "はい").Average(n => n.Rate * 100).ToString("F1")</td><td>@item2.AsParallel().Where(n => n.UserData.niku == "草食" && n.UserData.keion == "いいえ").Average(n => n.Rate * 100).ToString("F1")</td></tr>
+    <tr><th>肉食</th>　<td>@item2.AsParallel().Where(n => n.UserData.niku == "肉食" && n.UserData.keion == "はい").Average(n => n.Rate * 100).ToString("F1")</td><td>@item2.AsParallel().Where(n => n.UserData.niku == "肉食" && n.UserData.keion == "いいえ").Average(n => n.Rate * 100).ToString("F1")</td></tr>
+    </table>
+    
+         }
+             </div>
+    }
+
+    </div>
+    <hr  style="width:1000px;"/>
+    <div class="All">
+    <br />
+    </div>
+}
+</div>
+    <hr  style="width:1000px;"/>
+
+<div class="All">
+DBが終了 @ViewBag.DBend 分 かかった時間 @((DateTime.Now-(DateTime)ViewBag.Start).TotalMinutes.ToString("F1")) 分
+            
+
+ </div>

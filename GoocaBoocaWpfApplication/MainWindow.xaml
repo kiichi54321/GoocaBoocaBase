@@ -1,0 +1,33 @@
+﻿<Window x:Class="GoocaBoocaWpfApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="MainWindow" Height="350" Width="704">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44" />
+            <RowDefinition Height="267*" />
+        </Grid.RowDefinitions>
+        <StackPanel Name="stackPanel1" Orientation="Horizontal">
+            <Button Content="データ取得" Height="23" Name="button1" Width="75" Click="button1_Click" />
+            <ComboBox Height="24" Name="comboBox1" Width="120" ItemsSource="{Binding}" SelectedIndex="1">
+                <ComboBoxItem Content="男性" />
+                <ComboBoxItem Content="女性" />
+                <ComboBoxItem Content="すべて" />
+            </ComboBox>
+            <Button Content="生成" Height="23" Name="button3" Width="75" Click="button3_Click" />
+            <TextBlock Height="23" Name="textBlock1" Text="クラスタ数" Width="74" />
+            <xctk:IntegerUpDown  Name="intUpDown" Value="10"></xctk:IntegerUpDown>
+            <Button Content="クラスタ数変更" Height="23" Name="button2" Width="127" Click="button2_Click" />
+            <ProgressBar Height="28" Name="progressBar1" Width="216" />
+        </StackPanel>
+        <ItemsControl Grid.Row="1" Name="itemsControl">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <WebBrowser Name="webBrowser1" Grid.Row="1" />
+    </Grid>
+</Window>

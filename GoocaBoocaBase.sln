@@ -11,6 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoocaBoocaInputDataForm", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoocaBoocaBackOffice", "GoocaBoocaBackOffice\GoocaBoocaBackOffice.csproj", "{7EC7E0FC-21A1-4CE5-8698-0808F16C3D32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoocaBoocaView", "GoocaBoocaView\GoocaBoocaView.csproj", "{701AEF9A-CD28-488B-A49C-3F0397C59495}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F7D907DE-0167-421C-B274-40C7745D5C40} = {F7D907DE-0167-421C-B274-40C7745D5C40}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoocaBoocaWpfApplication", "GoocaBoocaWpfApplication\GoocaBoocaWpfApplication.csproj", "{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +78,26 @@ Global
 		{7EC7E0FC-21A1-4CE5-8698-0808F16C3D32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7EC7E0FC-21A1-4CE5-8698-0808F16C3D32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7EC7E0FC-21A1-4CE5-8698-0808F16C3D32}.Release|x86.ActiveCfg = Release|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{701AEF9A-CD28-488B-A49C-3F0397C59495}.Release|x86.ActiveCfg = Release|Any CPU
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Debug|x86.ActiveCfg = Debug|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Debug|x86.Build.0 = Debug|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Release|Any CPU.ActiveCfg = Release|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Release|x86.ActiveCfg = Release|x86
+		{B523C62D-8B6D-4B09-A840-4E8FEE2D6633}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

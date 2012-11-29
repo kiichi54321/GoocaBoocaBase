@@ -8,10 +8,19 @@ namespace GoocaBoocaDataModels.Model
     public class QuestionChoiceCount
     {
         public QuestionChoice QuestionChoice { get; set; }
-        public Question Question { get; set; } 
+        public Question Question { get; set; }
         public int Count { get; set; }
         public double Rate { get; set; }
     }
+
+    public class GoocaBoocaAnswerData
+    {
+        public int UserId { get; set; }
+        public double[] Data { get; set; }
+        public List<Tuple<string, string>> Question { get; set; }
+        public List<Tuple<string, string>> FreeAnswer { get; set; }
+    }
+
 
     public class SummarizeData
     {
@@ -20,6 +29,71 @@ namespace GoocaBoocaDataModels.Model
         {
             this.db = db;
         }
+
+        public class CategoryChoiceCount
+        {
+            public ItemCategory Category { get; set; }
+            public ItemAnswerChoice Choice { get; set; }
+            public int Count { get; set; }
+
+        }
+
+        public class CategoryRate
+        {
+            public ItemCategory Category { get; set; }
+            public double Rate { get; set; }
+        }
+
+
+        public IEnumerable<GoocaBoocaAnswerData> CreateGoocaBoocaAnswerData(string research_id)
+        {
+            List<GoocaBoocaAnswerData> list = new List<GoocaBoocaAnswerData>();
+            var research = db.GetResearch(research_id);
+            if (research == null) return list;
+
+            var result_tmp = db.ItemAnsweres.Join(db.UserAnswerCompleted.Where(n => n.Research.ResearchId == research.ResearchId), n => n.User.UserId, n => n.User.UserId, (m, n) => m).Where(n => n.Research.ResearchId == research.ResearchId).GroupBy(n => new { n.User, n.ItemCategory, n.ItemAnswerChoice }).Select(n => new { User = n.Key.User, CategoryChoice = new CategoryChoiceCount() { Category = n.Key.ItemCategory, Choice = n.Key.ItemAnswerChoice, Count = n.Count() } });
+
+            var result_tmp2 = result_tmp.GroupBy(n => n.User);
+
+
+            var answerPattern = from choice in db.ItemAnswerChoice.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
+                                from category in db.ItemCategories.Where(n => n.Research.ResearchId == research.ResearchId).ToArray()
+                                select new CategoryChoiceCount() { Category = category, Choice = choice, Count = 0 };
+
+            Dictionary<int, GoocaBoocaAnswerData> dic = new Dictionary<int, GoocaBoocaAnswerData>();
+            foreach (var item in result_tmp.GroupBy(n => n.User))
+            {
+                var rate = item.Select(n => n.CategoryChoice).Concat(answerPattern).GroupBy(n => new { n.Category }).Select(n => new CategoryRate() { Category = n.Key.Category, Rate = (double)n.Where(m => m.Choice.Tag == "Key").Sum(m => m.Count) / (double)n.Sum(m => m.Count) }).OrderBy(n=>n.Category.ItemCategoryId);
+                dic.Add(item.Key.UserId, new GoocaBoocaAnswerData() { UserId = item.Key.UserId, Data = rate.Select(n => n.Rate).ToArray() });
+            }
+
+            var questionAnswer = db.QuestionAnsweres.Where(n => n.Research.ResearchId == research.ResearchId).GroupBy(n => n.User.UserId);
+
+            foreach (var item in questionAnswer)
+            {
+                if (dic.ContainsKey(item.Key))
+                {
+                    dic[item.Key].Question = new List<Tuple<string, string>>();                
+                    foreach (var item2 in item)
+                    {
+                        dic[item.Key].Question.Add(new Tuple<string, string>(item2.Question.QuestionName, item2.QuestionChoice.QuestionChoiceText));
+                    }
+                }
+            }
+            foreach (var item in db.FreeAnsweres.Where(n=>n.Question.Research.ResearchId == research.ResearchId).GroupBy(n=>n.User.UserId))
+            {
+                if (dic.ContainsKey(item.Key))
+                {
+                    dic[item.Key].FreeAnswer = new List<Tuple<string, string>>();
+                    foreach (var item2 in item)
+                    {
+                        dic[item.Key].FreeAnswer.Add(new Tuple<string, string>(item2.Question.QuestionName, item2.FreeTest));
+                    }
+                }              
+            }
+            return dic.Values;
+        }
+
 
         public IEnumerable<Tuple<QuestionChoice, int>> GetQuestionChoiceAll(string research_id)
         {
@@ -30,7 +104,7 @@ namespace GoocaBoocaDataModels.Model
                             join complete in db.UserAnswerCompleted.Where(n => n.Research.ResearchId == research.ResearchId)
                             on answer.User.UserId equals complete.User.UserId into z
                             select answer;
-            return  resultAll.GroupBy(n => n.QuestionChoice).Select(n => new { n.Key, Count = n.Count() }).ToArray().Select(n => new Tuple<QuestionChoice, int>(n.Key, n.Count));
+            return resultAll.GroupBy(n => n.QuestionChoice).Select(n => new { n.Key, Count = n.Count() }).ToArray().Select(n => new Tuple<QuestionChoice, int>(n.Key, n.Count));
         }
 
 
