@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Research>
+  <Base>
+    <ResearchName>化粧する男</ResearchName>
+    <ResearchIdName>mensmake</ResearchIdName>
+    <Description>
+      化粧する男についてどう思いますか。GACKT、BIGBANG、最近では町中でも見られますね。メンズファッションの中から、化粧する男像に迫るのが今回の研究テーマ。これから30枚の男性ファッションの写真を見ていただきます。
+      表示される写真をみて、メイクの似合うファッションだとおもったら、「はい」じゃないとおもったら「いいえ」を選択してください。メイクの程度（濃さなど）はあなたのご想像でかまいません。所要時間は５分程度。
+    </Description>
+    <QuestionText>表示される写真をみて、メイクの似合うファッションだとおもったら、「はい」じゃないとおもったら「いいえ」を選択してください。メイクの程度（濃さなど）はあなたのご想像でかまいません。</QuestionText>
+    <AnswerCount>30</AnswerCount>
+    <Hidden>False</Hidden>
+    <ResearchType>GoocaBooca</ResearchType>
+    <ResearchMainImage >mainImage.jpg</ResearchMainImage>
+    <ExtendAnlyzeResultUrl></ExtendAnlyzeResultUrl>
+    <ImageBaseUrl>http://web.sfc.keio.ac.jp/~kiichi/ORF2013/mensmake2013/</ImageBaseUrl>
+  </Base>
+  <ItemAnswerChoiceList>
+    <AnswerString Tag="Key">はい</AnswerString>
+    <AnswerString>いいえ</AnswerString>
+  </ItemAnswerChoiceList>
+
+  <Categories>
+    <Category CategoryName="ストリート系" CategoryId="Street">
+      <Item ImageUrl="1_01.jpg"></Item>
+      <Item ImageUrl="1_02.jpg"></Item>
+      <Item ImageUrl="1_03.jpg"></Item>
+      <Item ImageUrl="1_04.jpg"></Item>
+      <Item ImageUrl="1_05.jpg"></Item>
+      <Item ImageUrl="1_06.jpg"></Item>
+      <Item ImageUrl="1_07.jpg"></Item>
+      <Item ImageUrl="1_08.jpg"></Item>
+      <Item ImageUrl="1_09.jpg"></Item>
+      <Item ImageUrl="1_10.jpg"></Item>
+      <Item ImageUrl="1_11.jpg"></Item>
+      <Item ImageUrl="1_12.jpg"></Item>
+      <Item ImageUrl="1_13.jpg"></Item>
+      <Item ImageUrl="1_14.jpg"></Item>
+      <Item ImageUrl="1_15.jpg"></Item>
+    </Category>
+    <Category CategoryName="サロン系"  CategoryId="salon">
+      <Item ImageUrl="2_01.jpg"></Item>
+      <Item ImageUrl="2_02.jpg"></Item>
+      <Item ImageUrl="2_03.jpg"></Item>
+      <Item ImageUrl="2_04.jpg"></Item>
+      <Item ImageUrl="2_05.jpg"></Item>
+      <Item ImageUrl="2_06.jpg"></Item>
+      <Item ImageUrl="2_07.jpg"></Item>
+      <Item ImageUrl="2_08.jpg"></Item>
+      <Item ImageUrl="2_09.jpg"></Item>
+      <Item ImageUrl="2_10.jpg"></Item>
+      <Item ImageUrl="2_11.jpg"></Item>
+      <Item ImageUrl="2_12.jpg"></Item>
+      <Item ImageUrl="2_13.jpg"></Item>
+      <Item ImageUrl="2_14.jpg"></Item>
+      <Item ImageUrl="2_15.jpg"></Item>
+    </Category>
+    <Category CategoryName="ギャル男系" CategoryId="gyaru">
+      <Item ImageUrl="3_01.jpg"></Item>
+      <Item ImageUrl="3_02.jpg"></Item>
+      <Item ImageUrl="3_03.jpg"></Item>
+      <Item ImageUrl="3_04.jpg"></Item>
+      <Item ImageUrl="3_05.jpg"></Item>
+      <Item ImageUrl="3_06.jpg"></Item>
+      <Item ImageUrl="3_07.jpg"></Item>
+      <Item ImageUrl="3_08.jpg"></Item>
+      <Item ImageUrl="3_09.jpg"></Item>
+      <Item ImageUrl="3_10.jpg"></Item>
+      <Item ImageUrl="3_11.jpg"></Item>
+      <Item ImageUrl="3_12.jpg"></Item>
+      <Item ImageUrl="3_13.jpg"></Item>
+      <Item ImageUrl="3_14.jpg"></Item>
+      <Item ImageUrl="3_15.jpg"></Item>
+    </Category>
+    <Category CategoryName="モード系" CategoryId="mode">
+      <Item ImageUrl="4_01.jpg"></Item>
+      <Item ImageUrl="4_02.jpg"></Item>
+      <Item ImageUrl="4_03.jpg"></Item>
+      <Item ImageUrl="4_04.jpg"></Item>
+      <Item ImageUrl="4_05.jpg"></Item>
+      <Item ImageUrl="4_06.jpg"></Item>
+      <Item ImageUrl="4_07.jpg"></Item>
+      <Item ImageUrl="4_08.jpg"></Item>
+      <Item ImageUrl="4_09.jpg"></Item>
+      <Item ImageUrl="4_10.jpg"></Item>
+      <Item ImageUrl="4_11.jpg"></Item>
+      <Item ImageUrl="4_12.jpg"></Item>
+      <Item ImageUrl="4_13.jpg"></Item>
+      <Item ImageUrl="4_14.jpg"></Item>
+      <Item ImageUrl="4_15.jpg"></Item>
+    </Category>
+    
+    <Category CategoryName="アメカジ系" CategoryId="amekaji">
+      <Item ImageUrl="5_01.jpg"></Item>
+      <Item ImageUrl="5_02.jpg"></Item>
+      <Item ImageUrl="5_03.jpg"></Item>
+      <Item ImageUrl="5_04.jpg"></Item>
+      <Item ImageUrl="5_05.jpg"></Item>
+      <Item ImageUrl="5_06.jpg"></Item>
+      <Item ImageUrl="5_07.jpg"></Item>
+      <Item ImageUrl="5_08.jpg"></Item>
+      <Item ImageUrl="5_09.jpg"></Item>
+      <Item ImageUrl="5_10.jpg"></Item>
+      <Item ImageUrl="5_11.jpg"></Item>
+      <Item ImageUrl="5_12.jpg"></Item>
+      <Item ImageUrl="5_13.jpg"></Item>
+      <Item ImageUrl="5_14.jpg"></Item>
+      <Item ImageUrl="5_15.jpg"></Item>
+    </Category>
+   
+    <Category CategoryName="きれいめ系" CategoryId="simple">
+      <Item ImageUrl="6_01.jpg"></Item>
+      <Item ImageUrl="6_02.jpg"></Item>
+      <Item ImageUrl="6_03.jpg"></Item>
+      <Item ImageUrl="6_04.jpg"></Item>
+      <Item ImageUrl="6_05.jpg"></Item>
+      <Item ImageUrl="6_06.jpg"></Item>
+      <Item ImageUrl="6_07.jpg"></Item>
+      <Item ImageUrl="6_08.jpg"></Item>
+      <Item ImageUrl="6_09.jpg"></Item>
+      <Item ImageUrl="6_10.jpg"></Item>
+      <Item ImageUrl="6_11.jpg"></Item>
+      <Item ImageUrl="6_12.jpg"></Item>
+      <Item ImageUrl="6_13.jpg"></Item>
+      <Item ImageUrl="6_14.jpg"></Item>
+      <Item ImageUrl="6_15.jpg"></Item>
+    </Category>
+  </Categories>
+
+
+  <Questions>
+    <Question>
+      <QuestionName>性別</QuestionName>
+      <QuestionText>性別は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>男性</QuestionChoiceText>
+        <QuestionChoiceText>女性</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>年齢</QuestionName>
+      <QuestionText>年齢は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>10代</QuestionChoiceText>
+        <QuestionChoiceText>20歳以上</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>ファッション</QuestionName>
+      <QuestionText>ファッションに敏感か</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>はい</QuestionChoiceText>
+        <QuestionChoiceText>いいえ</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>
+        男性のメイク
+      </QuestionName>
+      <QuestionText>男性のメイクはあなたにとってありか</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>あり</QuestionChoiceText>
+        <QuestionChoiceText>なし</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>恋愛</QuestionName>
+      <QuestionText>あなたは恋愛中ですか</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>はい</QuestionChoiceText>
+        <QuestionChoiceText>いいえ</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+  </Questions>
+</Research>

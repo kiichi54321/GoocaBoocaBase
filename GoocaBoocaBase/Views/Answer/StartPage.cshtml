@@ -1,0 +1,16 @@
+﻿@{
+    }
+@model GoocaBoocaDataModels.Research
+@using GoocaBoocaBase.Helpers
+
+    @if (Model.ResearchMainImage != null)
+    {
+         @Html.Image("", Model.Tag + Model.ResearchMainImage.ImageName, Model.ResearchName);
+    }
+<p>@Html.Raw(Model.Description.Replace("\n","<br>"))</p>
+
+ @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
+ {
+     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", Model.ResearchIdName) <input type="submit" value="送信" />     
+ }
+ <br />*ユーザ名は、なんでもいいです。   

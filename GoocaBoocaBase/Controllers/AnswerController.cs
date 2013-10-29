@@ -46,7 +46,22 @@ namespace GoocaBoocaBase.Controllers
 
         }
 
+        public ActionResult StartPage(string researchIdName)
+        {
+            if (researchIdName == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            var research = db.GetResearch(researchIdName);
+            if (research == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.Title = research.ResearchName;
+            return View(research);
+        }
 
         public ActionResult Simple(string research_id, string image_id, string answer_id, string uid)
         {
@@ -63,14 +78,15 @@ namespace GoocaBoocaBase.Controllers
             }
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
             var research = db.GetResearch(research_id);
-
+            ViewBag.Title = research.ResearchName;
             if (research.ResearchType == GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
             {
                 if (image_id != null && answer_id != null)
                 {
                     db.InsertItemAnswer(research_id, image_id, uid, answer_id, this.Request.UserHostAddress);
                 }
-                ViewBag.Description = research.Description;
+                ViewBag.Description = research.Description.Replace("\n","<br>");
+                ViewBag.QuestionText = research.QuestionText.Replace("\n", "<br>");
 
 
                 var data = db.GetNextImageId(research_id, uid, this.Request.UserHostAddress);
@@ -120,7 +136,7 @@ namespace GoocaBoocaBase.Controllers
             ViewBag.QuestionText = research.QuestionText;
             ViewBag.Description = research.Description;
             ViewBag.MaxCount = research.AnswerCount;
-            
+            ViewBag.Title = research.ResearchName;  
             if (selected_image_id != null && noSelected_image_id != null)
             {
                 db.InsertItemCompareAnswer(research_id, uid, this.Request.UserHostAddress, selected_image_id, noSelected_image_id);
@@ -160,6 +176,8 @@ namespace GoocaBoocaBase.Controllers
                 ViewBag.uid = uid;
             }
             GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            var research = db.GetResearch(research_id);
+            ViewBag.Title = research.ResearchName;
             if (flag != null)
             {
                 Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -187,6 +205,9 @@ namespace GoocaBoocaBase.Controllers
         {
             ViewBag.research_id = research_id;
             ViewBag.uid = uid;
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            var research = db.GetResearch(research_id);
+            ViewBag.Title = "これで終わりです。";
             return View();
         }
 

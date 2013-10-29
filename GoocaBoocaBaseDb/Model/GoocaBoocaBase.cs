@@ -116,7 +116,7 @@ namespace GoocaBoocaDataModels
             var research = GetResearch(research_str);
             if (research != null)
             {
-                return this.Questiones.Where(n => n.Research.ResearchId == research.ResearchId).OrderBy(n => n.QuestionOrder);
+                return this.Questiones.Where(n => n.Research.ResearchId == research.ResearchId && n.IsActive == true).OrderBy(n => n.QuestionOrder);
             }
 
             return new List<Question>();
@@ -132,9 +132,9 @@ namespace GoocaBoocaDataModels
             var research = this.Researches.Where(n => n.ResearchId == research_id).FirstOrDefault();
             var user = this.Users.Where(n => n.UserId == user_id).FirstOrDefault();
 
-            var all = this.Items.Where(n => n.Resarch.ResearchId == research.ResearchId);
-            var answered = this.ItemAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId).Select(n => n.Item);
-            var category = this.ItemCategories.Where(n => n.Research.ResearchId == research.ResearchId);
+            var all = this.Items.Where(n => n.Resarch.ResearchId == research.ResearchId && n.IsActive == true);
+            var answered = this.ItemAnsweres.Where(n => n.Research.ResearchId == research.ResearchId && n.User.UserId == user.UserId && n.IsActive == true).Select(n => n.Item);
+            var category = this.ItemCategories.Where(n => n.Research.ResearchId == research.ResearchId && n.IsActive == true);
 
             var categoryCount = category.Count();
             var categoryMaxCount = research.AnswerCount / categoryCount;

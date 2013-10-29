@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Simple";
+    ViewBag.Title = null;
 }
 @using GoocaBoocaBase.Helpers
 @model IEnumerable<GoocaBoocaDataModels.ItemAnswerChoice>
@@ -17,13 +17,11 @@
     });
 </script>　-->
 
-<p>回答数： @ViewBag.answerCount / @ViewBag.MaxCount</p>
-<p>@ViewBag.Description</p>
 <div>
 <img src="@ViewBag.ImageUrl" alt="MainImage" />
 </div>
-<div>
-<ul id="answerChoice">
+<div >
+<ul id="answerChoice" style="margin-left:auto;margin-right:auto;">
 @foreach (var item in Model)
 {
     <li>
@@ -31,6 +29,9 @@
     </li>
 }
 </ul>
+<p>回答数： @ViewBag.answerCount / @ViewBag.MaxCount</p>
+<p>@if(false){ @Html.Raw(ViewBag.QuestionText)}</p>
+
 </div>
 <p> @ViewBag.Message</p>
 

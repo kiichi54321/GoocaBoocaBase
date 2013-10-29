@@ -9,20 +9,18 @@
 <p>GoocaBoocaは、スマートフォン・PCを使ったリサーチサイトです。</p>
 
 
-@foreach (var item in Model.Where(n=>n.Hidden == false))
+@foreach (var item in Model.Where(n=>n.Hidden == false && n.IsActive == true))
 {
-<h3>@item.ResearchName (@((ViewBag.DB as GoocaBoocaDataModels.GoocaBoocaDataBase).GetAnswerUserCount(item)))</h3>
+<h3>@Html.ActionLink(item.ResearchName, "StartPage", "Answer", new { ResearchIdName = item.ResearchIdName }, new { }) (@((ViewBag.DB as GoocaBoocaDataModels.GoocaBoocaDataBase).GetAnswerUserCount(item)))</h3>
     if (item.ResearchMainImage != null)
     {
-        @Html.Image("", @Url.Action("Download", "Image", new { id = item.ResearchMainImage.ImageId }), item.ResearchName);
+        <a href="@Url.Action("StartPage","Answer",new {ResearchIdName = item.ResearchIdName })">
+         @Html.Image("", item.Tag + item.ResearchMainImage.ImageName, item.ResearchName)
+         </a>
     }
-    <div>@item.Description</div>
+    <div>@Html.Raw(item.QuestionText.Replace("\n", "<br>"))</div>
 <p>
- @using (@Html.BeginForm("SimpleAddUser", "Answer", FormMethod.Post))
- {
-     @Html.Label("ユーザ名") @Html.TextBox("UserName") @Html.Hidden("research_id", item.ResearchIdName) <input type="submit" value="送信" />     
- }
- <br />*ユーザ名は、なんでもいいです。    
+ 
 </p>
 <hr />    
 }

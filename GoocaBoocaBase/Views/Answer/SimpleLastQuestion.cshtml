@@ -1,11 +1,14 @@
 ﻿@{
-    ViewBag.Title = "SimpleLastQuestion";
+  
 }
 
-<h2>SimpleLastQuestion</h2>
 
 <p>ありがとうございました。</p>
 
 <p>
-@Html.ActionLink("結果を見る", "Index", "Result", new { research_id = ViewBag.research_id, uid = ViewBag.uid },null);
+@Html.ActionLink("結果を見る", "Index", "Result", new { research_id = ViewBag.research_id, uid = ViewBag.uid },null)
+</p>
+
+<p>
+@Html.ActionLink("戻る", "Index", "Home");
 </p>

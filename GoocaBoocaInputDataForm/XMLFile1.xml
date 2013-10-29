@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Research>
+  <Base>
+    <ResearchName>キュートモ</ResearchName>
+    <ResearchIdName>cutomo2012</ResearchIdName>
+    <Description>キュートモ！[キュートモ]はｹｰﾀｲを使ったﾘｻｰﾁｻｲﾄです。表示される女性を見て、 「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」を選択してください。</Description>
+    <QuestionText>「仲良くなりたい！」と思ったら、「なりたい!」を、なりたくないと思えば「別に…」</QuestionText>
+    <AnswerCount>30</AnswerCount>
+    <Hidden>False</Hidden>
+    <ResearchType>GoocaBooca</ResearchType>
+    <ResearchMainImage >mainImage.jpg</ResearchMainImage>
+    <ExtendAnlyzeResultUrl></ExtendAnlyzeResultUrl>
+  </Base>
+  <ItemAnswerChoiceList>
+    <AnswerString>仲良くなりたい！</AnswerString>
+    <AnswerString>別に・・・</AnswerString>
+  </ItemAnswerChoiceList>
+  <Categories>
+    <Category CategoryName="カテゴリー１" CategoryId="C_1">
+      <Item ImageUrl="image_1.jpg" ItemAttribute="キャラ名:あずにゃん,髪型:ツインテール,髪色:黒髪,撮影方向:正面,乳:貧乳,ソックス:黒ソックス" ></Item>
+      <Item ImageUrl="image_2.jpg"></Item>
+      <Item ImageUrl="image_3.jpg"></Item>
+      <Item ImageUrl="image_4.jpg"></Item>
+      <Item ImageUrl="image_5.jpg"></Item>
+      <Item ImageUrl="image_6.jpg"></Item>
+    </Category>
+    <Category CategoryName="カテゴリー2"  CategoryId="C_2">
+      <Item ImageUrl="image_a1.jpg"></Item>
+      <Item ImageUrl="image_a2.jpg"></Item>
+      <Item ImageUrl="image_a3.jpg"></Item>
+      <Item ImageUrl="image_a4.jpg"></Item>
+      <Item ImageUrl="image_a5.jpg"></Item>
+      <Item ImageUrl="image_a6.jpg"></Item>
+    </Category>
+    <Category CategoryName="カテゴリー3" CategoryId="C_3">
+      <Item ImageUrl="image_b1.jpg"></Item>
+      <Item ImageUrl="image_b2.jpg"></Item>
+      <Item ImageUrl="image_b3.jpg"></Item>
+      <Item ImageUrl="image_b4.jpg"></Item>
+      <Item ImageUrl="image_b5.jpg"></Item>
+      <Item ImageUrl="image_b6.jpg"></Item>
+    </Category>
+    <Category CategoryName="カテゴリー4" CategoryId="C_4">
+      <Item ImageUrl="image_c1.jpg"></Item>
+      <Item ImageUrl="image_c2.jpg"></Item>
+      <Item ImageUrl="image_c3.jpg"></Item>
+      <Item ImageUrl="image_c4.jpg"></Item>
+      <Item ImageUrl="image_c5.jpg"></Item>
+      <Item ImageUrl="image_c6.jpg"></Item>
+    </Category>
+  </Categories>
+  <Questions>
+    <Question>
+      <QuestionName>性別</QuestionName>
+      <QuestionText>性別は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>男性</QuestionChoiceText>
+        <QuestionChoiceText>女性</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>年齢</QuestionName>
+      <QuestionText>年齢は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>18未満</QuestionChoiceText>
+        <QuestionChoiceText>18～20歳</QuestionChoiceText>
+        <QuestionChoiceText>21～24歳</QuestionChoiceText>
+        <QuestionChoiceText>25歳以上</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>感想</QuestionName>
+      <QuestionText>感想</QuestionText>
+      <QuestionType>FreeText</QuestionType>
+    </Question>
+
+  </Questions>
+</Research>

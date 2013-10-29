@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "SimpleQuestion";
 }
 @model IEnumerable<GoocaBoocaDataModels.Question>
 @using GoocaBoocaBase.Helpers
@@ -18,7 +17,7 @@
 
     });
 </script>
-<h2>LastQuestion</h2>
+<h2>最後の質問です</h2>
 
 <div class="error">@ViewBag.ErrMessage</div>
 @using (Html.BeginForm("SimpleQuestion", "Answer", FormMethod.Post, new { id = "form1" ,@class="cmxform"}))
@@ -35,7 +34,7 @@
                 }
                 @if (item.QuestionType == GoocaBoocaDataModels.QuestionType.Choice.ToString())
                 {
-                    foreach (var item2 in item.QuestionChoices)
+                    foreach (var item2 in item.QuestionChoices.Where(n=>n.IsActive == true))
                     {
                         
                    <ul>

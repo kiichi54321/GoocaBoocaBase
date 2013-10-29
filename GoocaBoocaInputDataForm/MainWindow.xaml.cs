@@ -428,6 +428,43 @@ namespace GoocaBoocaInputDataForm
 
         }
 
+        private void button10_Click(object sender, RoutedEventArgs e)
+        {
+            Research r = new Research();
+            Clipboard.SetText(System.Xaml.XamlServices.Save(r));
+        }
+
+        private void button10_Click_1(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+
+            if (ofd.ShowDialog() == true)
+            {
+                XMLInport xmlInport = new XMLInport();
+                XMLInport.Inport(ofd.FileName, new GoocaBoocaDataBase());
+                MessageBox.Show("完了");
+            }
+        }
+
+        private void button11_Click(object sender, RoutedEventArgs e)
+        {
+            string r_id = textBox6.Text;
+
+            GoocaBoocaDataBase g = new GoocaBoocaDataBase();
+            var r = g.GetResearch(r_id);
+            if (r != null)
+            {
+                var group = g.ItemAnsweres.Where(n => n.Research.ResearchId == r.ResearchId).GroupBy(n => new { n.Item.Category.ItemCategoryName,n.ItemAnswerChoice.AnswerString }).Select(n => new { n.Key.ItemCategoryName,n.Key.AnswerString ,Count = n.Count() }).ToList();
+                System.Text.StringBuilder sb = new StringBuilder();
+                foreach (var item in group)
+                {
+                    sb.Append(item.ItemCategoryName).Append("\t").Append(item.AnswerString).Append("\t").Append(item.Count).AppendLine();
+                }
+                Clipboard.SetText(sb.ToString());
+            }
+
+        }
+
 
     }
 }
