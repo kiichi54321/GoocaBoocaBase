@@ -181,7 +181,6 @@ namespace GoocaBoocaInputDataForm
                             if (category.Items != null)
                             {
                                 itemNode = category.Items.Where(n => n.ItemName == imageUrl).DefaultIfEmpty(null).FirstOrDefault();
-                                itemNode.IsActive = true;
                             }
                             if (itemNode == null)
                             {
@@ -191,6 +190,8 @@ namespace GoocaBoocaInputDataForm
 
                                 //                                itemNode.ItemAttribute.Add(new GoocaBoocaDataModels.ItemAttribute(){ 
                             }
+                            itemNode.IsActive = true;
+
                             var itemAttributeText = item2.Attribute(ns + "ItemAttribute");
                             if (itemAttributeText != null)
                             {

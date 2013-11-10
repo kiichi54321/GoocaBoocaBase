@@ -1,137 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Research>
   <Base>
-    <ResearchName>化粧する男</ResearchName>
-    <ResearchIdName>mensmake</ResearchIdName>
+    <ResearchName>Make Sexy</ResearchName>
+    <ResearchIdName>makesexy</ResearchIdName>
     <Description>
-      化粧する男についてどう思いますか。GACKT、BIGBANG、最近では町中でも見られますね。メンズファッションの中から、化粧する男像に迫るのが今回の研究テーマ。これから30枚の男性ファッションの写真を見ていただきます。
-      表示される写真をみて、メイクの似合うファッションだとおもったら、「はい」じゃないとおもったら「いいえ」を選択してください。メイクの程度（濃さなど）はあなたのご想像でかまいません。所要時間は５分程度。
+      色気は作れるのでしょうか？
+      メイクによって演出することはできるのか。
+      いまどんな顔の女の子がいちばん色っぽいのでしょうか。
     </Description>
-    <QuestionText>表示される写真をみて、メイクの似合うファッションだとおもったら、「はい」じゃないとおもったら「いいえ」を選択してください。メイクの程度（濃さなど）はあなたのご想像でかまいません。</QuestionText>
-    <AnswerCount>30</AnswerCount>
+    <QuestionText>
+      女の子の画像40枚がでてきます。
+      考えすぎず直感的に、でてくる画像の女の子が
+      色っぽいか、あんまりか、でお答えください。
+      所要時間は5分程度です。
+    </QuestionText>
+    <AnswerCount>40</AnswerCount>
     <Hidden>False</Hidden>
     <ResearchType>GoocaBooca</ResearchType>
+    <ImageBaseUrl>http://web.sfc.keio.ac.jp/~kiichi/ORF2013/makesexy/</ImageBaseUrl>
     <ResearchMainImage >mainImage.jpg</ResearchMainImage>
     <ExtendAnlyzeResultUrl></ExtendAnlyzeResultUrl>
-    <ImageBaseUrl>http://web.sfc.keio.ac.jp/~kiichi/ORF2013/mensmake2013/</ImageBaseUrl>
   </Base>
   <ItemAnswerChoiceList>
-    <AnswerString Tag="Key">はい</AnswerString>
-    <AnswerString>いいえ</AnswerString>
+    <AnswerString Tag="Key">色っぽい</AnswerString>
+    <AnswerString>あんまり</AnswerString>
   </ItemAnswerChoiceList>
-
   <Categories>
-    <Category CategoryName="ストリート系" CategoryId="Street">
-      <Item ImageUrl="1_01.jpg"></Item>
-      <Item ImageUrl="1_02.jpg"></Item>
-      <Item ImageUrl="1_03.jpg"></Item>
-      <Item ImageUrl="1_04.jpg"></Item>
-      <Item ImageUrl="1_05.jpg"></Item>
-      <Item ImageUrl="1_06.jpg"></Item>
-      <Item ImageUrl="1_07.jpg"></Item>
-      <Item ImageUrl="1_08.jpg"></Item>
-      <Item ImageUrl="1_09.jpg"></Item>
-      <Item ImageUrl="1_10.jpg"></Item>
-      <Item ImageUrl="1_11.jpg"></Item>
-      <Item ImageUrl="1_12.jpg"></Item>
-      <Item ImageUrl="1_13.jpg"></Item>
-      <Item ImageUrl="1_14.jpg"></Item>
-      <Item ImageUrl="1_15.jpg"></Item>
+    <Category CategoryName="ar">
+      <Item ImageUrl="ar01.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:薄い,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="ar02.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:赤,アイ:普通,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="ar03.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:ヌーディー,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ar04.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:ピンク,アイ:濃い,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ar05.jpg" ItemAttribute="髪色:黒,髪型:N,リップ:赤,アイ:濃い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="ar06.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:ピンク,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="ar07.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:濃い,チーク:普通,口:とんがり"></Item>
+      <Item ImageUrl="ar08.jpg" ItemAttribute="髪色:黒,髪型:N,リップ:ピンク,アイ:普通,チーク:ナシ,口:あいてない"></Item>
+      <Item ImageUrl="ar09.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ピンク,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ar10.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:ヌーディー,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ar11.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:ピンク,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ar12.jpg" ItemAttribute="髪色:黒,髪型:N,リップ:赤,アイ:濃い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="ar13.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:赤,アイ:普通,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="ar14.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:普通,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="ar15.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:赤,アイ:濃い,チーク:普通,口:あいてる"></Item>
     </Category>
-    <Category CategoryName="サロン系"  CategoryId="salon">
-      <Item ImageUrl="2_01.jpg"></Item>
-      <Item ImageUrl="2_02.jpg"></Item>
-      <Item ImageUrl="2_03.jpg"></Item>
-      <Item ImageUrl="2_04.jpg"></Item>
-      <Item ImageUrl="2_05.jpg"></Item>
-      <Item ImageUrl="2_06.jpg"></Item>
-      <Item ImageUrl="2_07.jpg"></Item>
-      <Item ImageUrl="2_08.jpg"></Item>
-      <Item ImageUrl="2_09.jpg"></Item>
-      <Item ImageUrl="2_10.jpg"></Item>
-      <Item ImageUrl="2_11.jpg"></Item>
-      <Item ImageUrl="2_12.jpg"></Item>
-      <Item ImageUrl="2_13.jpg"></Item>
-      <Item ImageUrl="2_14.jpg"></Item>
-      <Item ImageUrl="2_15.jpg"></Item>
+    <Category CategoryName="JJ">
+      <Item ImageUrl="JJ01.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="JJ02.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="JJ03.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="JJ04.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ヌーディー,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="JJ05.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="JJ06.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:ヌーディー,アイ:普通,チーク:濃い,口:あいてる"></Item>
+      <Item ImageUrl="JJ07.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:赤,アイ:普通,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="JJ08.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:赤,アイ:濃い,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="JJ09.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:赤,アイ:濃い,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="JJ10.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:ヌーディー,アイ:普通,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="JJ11.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:赤,アイ:普通,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="JJ12.jpg" ItemAttribute="髪色:うす茶,髪型:N,リップ:赤,アイ:濃い,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="JJ13.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="JJ14.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="JJ15.jpg" ItemAttribute="髪色:黒,髪型:アリ,リップ:ピンク,アイ:濃い,チーク:普通,口:笑顔"></Item>
     </Category>
-    <Category CategoryName="ギャル男系" CategoryId="gyaru">
-      <Item ImageUrl="3_01.jpg"></Item>
-      <Item ImageUrl="3_02.jpg"></Item>
-      <Item ImageUrl="3_03.jpg"></Item>
-      <Item ImageUrl="3_04.jpg"></Item>
-      <Item ImageUrl="3_05.jpg"></Item>
-      <Item ImageUrl="3_06.jpg"></Item>
-      <Item ImageUrl="3_07.jpg"></Item>
-      <Item ImageUrl="3_08.jpg"></Item>
-      <Item ImageUrl="3_09.jpg"></Item>
-      <Item ImageUrl="3_10.jpg"></Item>
-      <Item ImageUrl="3_11.jpg"></Item>
-      <Item ImageUrl="3_12.jpg"></Item>
-      <Item ImageUrl="3_13.jpg"></Item>
-      <Item ImageUrl="3_14.jpg"></Item>
-      <Item ImageUrl="3_15.jpg"></Item>
+    <Category CategoryName="mini">
+      <Item ImageUrl="mini01.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="mini02.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="mini03.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="mini04.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="mini05.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:赤,アイ:濃い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="mini06.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:ピンク,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="mini07.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:普通,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="mini08.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:赤,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="mini09.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:濃い,口:笑顔"></Item>
+      <Item ImageUrl="mini10.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="mini11.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:濃い,口:笑顔"></Item>
+      <Item ImageUrl="mini12.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ヌーディー,アイ:普通,チーク:濃い,口:あいてる"></Item>
+      <Item ImageUrl="mini13.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:ピンク,アイ:濃い,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="mini14.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:ピンク,アイ:濃い,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="mini15.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:赤,アイ:濃い,チーク:薄い,口:とんがり"></Item>
     </Category>
-    <Category CategoryName="モード系" CategoryId="mode">
-      <Item ImageUrl="4_01.jpg"></Item>
-      <Item ImageUrl="4_02.jpg"></Item>
-      <Item ImageUrl="4_03.jpg"></Item>
-      <Item ImageUrl="4_04.jpg"></Item>
-      <Item ImageUrl="4_05.jpg"></Item>
-      <Item ImageUrl="4_06.jpg"></Item>
-      <Item ImageUrl="4_07.jpg"></Item>
-      <Item ImageUrl="4_08.jpg"></Item>
-      <Item ImageUrl="4_09.jpg"></Item>
-      <Item ImageUrl="4_10.jpg"></Item>
-      <Item ImageUrl="4_11.jpg"></Item>
-      <Item ImageUrl="4_12.jpg"></Item>
-      <Item ImageUrl="4_13.jpg"></Item>
-      <Item ImageUrl="4_14.jpg"></Item>
-      <Item ImageUrl="4_15.jpg"></Item>
+    <Category CategoryName="non-no">
+      <Item ImageUrl="non-no01.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:薄い,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="non-no02.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="non-no03.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="non-no04.jpg" ItemAttribute="髪色:黒,髪型:N,リップ:赤,アイ:薄い,チーク:普通,口:とんがり"></Item>
+      <Item ImageUrl="non-no05.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="non-no06.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:ヌーディー,アイ:薄い,チーク:普通,口:笑顔"></Item>
+      <Item ImageUrl="non-no07.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:ピンク,アイ:薄い,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="non-no08.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="non-no09.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:普通,口:とんがり"></Item>
+      <Item ImageUrl="non-no10.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="non-no11.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="non-no12.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:普通,口:とんがり"></Item>
+      <Item ImageUrl="non-no13.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="non-no14.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:普通,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="non-no15.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:笑顔"></Item>
     </Category>
-    
-    <Category CategoryName="アメカジ系" CategoryId="amekaji">
-      <Item ImageUrl="5_01.jpg"></Item>
-      <Item ImageUrl="5_02.jpg"></Item>
-      <Item ImageUrl="5_03.jpg"></Item>
-      <Item ImageUrl="5_04.jpg"></Item>
-      <Item ImageUrl="5_05.jpg"></Item>
-      <Item ImageUrl="5_06.jpg"></Item>
-      <Item ImageUrl="5_07.jpg"></Item>
-      <Item ImageUrl="5_08.jpg"></Item>
-      <Item ImageUrl="5_09.jpg"></Item>
-      <Item ImageUrl="5_10.jpg"></Item>
-      <Item ImageUrl="5_11.jpg"></Item>
-      <Item ImageUrl="5_12.jpg"></Item>
-      <Item ImageUrl="5_13.jpg"></Item>
-      <Item ImageUrl="5_14.jpg"></Item>
-      <Item ImageUrl="5_15.jpg"></Item>
+    <Category CategoryName="Ray">
+      <Item ImageUrl="Ray01.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:濃い,チーク:薄い,口:あいてる"></Item>
+      <Item ImageUrl="Ray02.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:赤,アイ:濃い,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="Ray03.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ピンク,アイ:普通,チーク:薄い,口:あいてない"></Item>
+      <Item ImageUrl="Ray04.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:ピンク,アイ:濃い,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="Ray05.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:赤,アイ:普通,チーク:薄い,口:とんがり"></Item>
+      <Item ImageUrl="Ray06.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ヌーディー,アイ:濃い,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="Ray07.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ピンク,アイ:普通,チーク:濃い,口:笑顔"></Item>
+      <Item ImageUrl="Ray08.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ピンク,アイ:普通,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="Ray09.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ピンク,アイ:濃い,チーク:濃い,口:笑顔"></Item>
+      <Item ImageUrl="Ray10.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:赤,アイ:濃い,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="Ray11.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:濃い,口:あいてない"></Item>
+      <Item ImageUrl="Ray12.jpg" ItemAttribute="髪色:黒,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="Ray13.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:赤,アイ:普通,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="Ray14.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:薄い,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="Ray15.jpg" ItemAttribute="髪色:うす茶,髪型:アリ,リップ:ピンク,アイ:薄い,チーク:普通,口:あいてる"></Item>
     </Category>
-   
-    <Category CategoryName="きれいめ系" CategoryId="simple">
-      <Item ImageUrl="6_01.jpg"></Item>
-      <Item ImageUrl="6_02.jpg"></Item>
-      <Item ImageUrl="6_03.jpg"></Item>
-      <Item ImageUrl="6_04.jpg"></Item>
-      <Item ImageUrl="6_05.jpg"></Item>
-      <Item ImageUrl="6_06.jpg"></Item>
-      <Item ImageUrl="6_07.jpg"></Item>
-      <Item ImageUrl="6_08.jpg"></Item>
-      <Item ImageUrl="6_09.jpg"></Item>
-      <Item ImageUrl="6_10.jpg"></Item>
-      <Item ImageUrl="6_11.jpg"></Item>
-      <Item ImageUrl="6_12.jpg"></Item>
-      <Item ImageUrl="6_13.jpg"></Item>
-      <Item ImageUrl="6_14.jpg"></Item>
-      <Item ImageUrl="6_15.jpg"></Item>
+    <Category CategoryName="ViVi">
+      <Item ImageUrl="ViVi01.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ピンク,アイ:薄い,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="ViVi02.jpg" ItemAttribute="髪色:黒,髪型:N,リップ:ヌーディー,アイ:普通,チーク:普通,口:笑顔"></Item>
+      <Item ImageUrl="ViVi03.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="ViVi04.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:薄い,口:笑顔"></Item>
+      <Item ImageUrl="ViVi05.jpg" ItemAttribute="髪色:黒,髪型:アリ,リップ:ヌーディー,アイ:普通,チーク:普通,口:笑顔"></Item>
+      <Item ImageUrl="ViVi06.jpg" ItemAttribute="髪色:金,髪型:N,リップ:赤,アイ:普通,チーク:普通,口:あいてない"></Item>
+      <Item ImageUrl="ViVi07.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:赤,アイ:濃い,チーク:濃い,口:あいてない"></Item>
+      <Item ImageUrl="ViVi08.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:赤,アイ:濃い,チーク:濃い,口:あいてる"></Item>
+      <Item ImageUrl="ViVi09.jpg" ItemAttribute="髪色:こげ茶,髪型:アリ,リップ:赤,アイ:濃い,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="ViVi10.jpg" ItemAttribute="髪色:こげ茶,髪型:ナシ,リップ:赤,アイ:濃い,チーク:濃い,口:あいてる"></Item>
+      <Item ImageUrl="ViVi11.jpg" ItemAttribute="髪色:黒,髪型:ナシ,リップ:赤,アイ:濃い,チーク:普通,口:あいてる"></Item>
+      <Item ImageUrl="ViVi12.jpg" ItemAttribute="髪色:黒,髪型:アリ,リップ:ピンク,アイ:濃い,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="ViVi13.jpg" ItemAttribute="髪色:うす茶,髪型:ナシ,リップ:ピンク,アイ:濃い,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="ViVi14.jpg" ItemAttribute="髪色:黒,髪型:アリ,リップ:赤,アイ:濃い,チーク:濃い,口:とんがり"></Item>
+      <Item ImageUrl="ViVi15.jpg" ItemAttribute="髪色:こげ茶,髪型:N,リップ:赤,アイ:濃い,チーク:濃い,口:あいてない"></Item>
     </Category>
   </Categories>
-
-
   <Questions>
     <Question>
       <QuestionName>性別</QuestionName>
-      <QuestionText>性別は</QuestionText>
+      <QuestionText>性別は？</QuestionText>
       <QuestionChoices>
         <QuestionChoiceText>男性</QuestionChoiceText>
         <QuestionChoiceText>女性</QuestionChoiceText>
@@ -139,37 +140,32 @@
     </Question>
     <Question>
       <QuestionName>年齢</QuestionName>
-      <QuestionText>年齢は</QuestionText>
+      <QuestionText>年齢は？</QuestionText>
       <QuestionChoices>
-        <QuestionChoiceText>10代</QuestionChoiceText>
-        <QuestionChoiceText>20歳以上</QuestionChoiceText>
+        <QuestionChoiceText>18未満</QuestionChoiceText>
+        <QuestionChoiceText>18～20歳</QuestionChoiceText>
+        <QuestionChoiceText>21～24歳</QuestionChoiceText>
+        <QuestionChoiceText>25歳以上</QuestionChoiceText>
       </QuestionChoices>
     </Question>
     <Question>
-      <QuestionName>ファッション</QuestionName>
-      <QuestionText>ファッションに敏感か</QuestionText>
+      <QuestionName>色っぽい/可愛い</QuestionName>
+      <QuestionText>あなたは色っぽい女性と可愛い女性、どちらが好き/憧れますか？</QuestionText>
       <QuestionChoices>
-        <QuestionChoiceText>はい</QuestionChoiceText>
-        <QuestionChoiceText>いいえ</QuestionChoiceText>
+        <QuestionChoiceText>色っぽい女性</QuestionChoiceText>
+        <QuestionChoiceText>可愛い女性</QuestionChoiceText>
       </QuestionChoices>
     </Question>
     <Question>
-      <QuestionName>
-        男性のメイク
-      </QuestionName>
-      <QuestionText>男性のメイクはあなたにとってありか</QuestionText>
-      <QuestionChoices>
-        <QuestionChoiceText>あり</QuestionChoiceText>
-        <QuestionChoiceText>なし</QuestionChoiceText>
-      </QuestionChoices>
+      <QuestionName>どこ</QuestionName>
+      <QuestionText>あなたは女性のどこに色気を感じますか？(ex. 唇、脚、声など)</QuestionText>
+      　　   <QuestionType>FreeText</QuestionType>
     </Question>
     <Question>
-      <QuestionName>恋愛</QuestionName>
-      <QuestionText>あなたは恋愛中ですか</QuestionText>
-      <QuestionChoices>
-        <QuestionChoiceText>はい</QuestionChoiceText>
-        <QuestionChoiceText>いいえ</QuestionChoiceText>
-      </QuestionChoices>
+      <QuestionName>どんなとき</QuestionName>
+      <QuestionText>あなたはどんなときに女性に色気を感じますか？</QuestionText>
+      　　   <QuestionType>FreeText</QuestionType>
     </Question>
+
   </Questions>
 </Research>

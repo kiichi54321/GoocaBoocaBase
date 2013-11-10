@@ -1,0 +1,24 @@
+﻿@model IEnumerable<GoocaBoocaDataModels.Research>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    GoocaBoocaData取得ページ</h2>
+
+    <p>リンクを名前つけて保存で保存してください。</p>
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @item.ResearchName
+            </th>
+            <td>
+                @Html.ActionLink("質問データ", "GetQuestion", new { researchIdName = item.ResearchIdName });
+            </td>
+            <td>
+                @Html.ActionLink("回答データ", "GetAnswer", new { researchIdName = item.ResearchIdName, skip = 30 });
+            </td>
+        </tr>
+    }
+</table>
