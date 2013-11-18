@@ -21,6 +21,10 @@ namespace GoocaBoocaBase.Controllers
             {
                 return RedirectToAction("GoocaBooca", new { research_id = research_id, uid = uid });
             }
+            if (research.ResearchType == "GoocaBoocaText")
+            {
+                return RedirectToAction("GoocaBooca", new { research_id = research_id, uid = uid });
+            }
             if (research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
             {
                 return RedirectToAction("Compare", new { research_id = research_id, uid = uid });
@@ -34,7 +38,7 @@ namespace GoocaBoocaBase.Controllers
             var research = db.GetResearch(research_id);
             if (research == null) return View();
             ViewBag.ResearchName = research.ResearchName;
-            if (research.ResearchType != GoocaBoocaDataModels.ResearchType.GoocaBooca.ToString())
+            if (research.ResearchType.Contains("GoocaBooca") == false)
             {
                 return RedirectToAction("Index", new { research_id = research_id, uid = uid });
             }

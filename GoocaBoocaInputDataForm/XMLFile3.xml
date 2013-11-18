@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Research>
+  <Base>
+    <ResearchName>フォントはエロい！</ResearchName>
+    <ResearchIdName>fonteroi2013</ResearchIdName>
+    <Description>
+      フォントは文字の化粧である。化粧がエロスに関連するとしたら、フォントにもエロスは潜むのではないか。
+      感覚に訴えるフォントのエロスについて調査する。
+    </Description>
+    <QuestionText>これから表示される文字がエロいと感じれば「エロい」を、何も感じなければ「エロくない」を選択してください。</QuestionText>
+    <AnswerCount>30</AnswerCount>
+    <Hidden>False</Hidden>
+    <ResearchType>GoocaBoocaText</ResearchType>
+    <ResearchMainImage>mainImage.png</ResearchMainImage>
+    <ImageBaseUrl>http://web.sfc.keio.ac.jp/~kiichi/ORF2013/makesexy2013/</ImageBaseUrl>
+    <ExtendAnlyzeResultUrl/>
+  </Base>
+
+
+  <ItemAnswerChoiceList>
+    <AnswerString Tag="Key">エロい</AnswerString>
+    <AnswerString>エロくない</AnswerString>
+  </ItemAnswerChoiceList>
+
+  <Categories>
+    <Category CategoryId="C_1" CategoryName="行書体系">
+      <Item ImageUrl="hg_1.png" ItemAttribute="Title:きんにくまん">
+        <Tag>
+          [[サブタイトル]]
+          トロールを作成する手順を説明しました。今回の記事では、同じコントロールを XAML で作成する手順を説明します。
+          再利用可能なカスタム コントロールの作成に必要なテクニックと概念を紹介し、コントロールのスタイルを設定する
+          テンプレートの作成方法を説明します。また、依存関係プロパティなどの概念を紹介し、カスタムの Generic.xaml 
+          ファイルを使って既定のコントロール テンプレートを定義する暗黙的なスタイルを作成する方法について説明します。
+        </Tag>
+      </Item>
+      <Item ImageUrl="hg_2.png"/>
+      <Item ImageUrl="hg_3.png"/>
+      <Item ImageUrl="hg_4.png"/>
+      <Item ImageUrl="hg_5.png"/>
+      <Item ImageUrl="hg_6.png"/>
+      <Item ImageUrl="hg_7.png"/>
+      <Item ImageUrl="hg_8.png"/>
+      <Item ImageUrl="hg_9.png"/>
+      <Item ImageUrl="hg_10.png"/>
+      <Item ImageUrl="hg_11.png"/>
+      <Item ImageUrl="hg_12.png"/>
+      <Item ImageUrl="hg_13.png"/>
+      <Item ImageUrl="hg_14.png"/>
+      <Item ImageUrl="hg_15.png"/>
+    </Category>
+
+    <Category CategoryId="C_2" CategoryName="ゴシック体系">
+      <Item ImageUrl="maru_1.png"/>
+      <Item ImageUrl="maru_2.png"/>
+      <Item ImageUrl="maru_3.png"/>
+      <Item ImageUrl="maru_4.png"/>
+      <Item ImageUrl="maru_5.png"/>
+      <Item ImageUrl="maru_6.png"/>
+      <Item ImageUrl="maru_7.png"/>
+      <Item ImageUrl="maru_8.png"/>
+      <Item ImageUrl="maru_9.png"/>
+      <Item ImageUrl="maru_10.png"/>
+      <Item ImageUrl="maru_11.png"/>
+      <Item ImageUrl="maru_12.png"/>
+      <Item ImageUrl="maru_13.png"/>
+      <Item ImageUrl="maru_14.png"/>
+      <Item ImageUrl="maru_15.png"/>
+    </Category>
+
+    <Category CategoryId="C_3" CategoryName="明朝体系">
+      <Item ImageUrl="min_1.png"/>
+      <Item ImageUrl="min_2.png"/>
+      <Item ImageUrl="min_3.png"/>
+      <Item ImageUrl="min_4.png"/>
+      <Item ImageUrl="min_5.png"/>
+      <Item ImageUrl="min_6.png"/>
+      <Item ImageUrl="min_7.png"/>
+      <Item ImageUrl="min_8.png"/>
+      <Item ImageUrl="min_9.png"/>
+      <Item ImageUrl="min_10.png"/>
+      <Item ImageUrl="min_11.png"/>
+      <Item ImageUrl="min_12.png"/>
+      <Item ImageUrl="min_13.png"/>
+      <Item ImageUrl="min_14.png"/>
+      <Item ImageUrl="min_15.png"/>
+    </Category>
+
+    <Category CategoryId="C_4" CategoryName="スラスラ文字系">
+      <Item ImageUrl="utu_1.png"/>
+      <Item ImageUrl="utu_2.png"/>
+      <Item ImageUrl="utu_3.png"/>
+      <Item ImageUrl="utu_4.png"/>
+      <Item ImageUrl="utu_5.png"/>
+      <Item ImageUrl="utu_6.png"/>
+      <Item ImageUrl="utu_7.png"/>
+      <Item ImageUrl="utu_8.png"/>
+      <Item ImageUrl="utu_9.png"/>
+      <Item ImageUrl="utu_10.png"/>
+      <Item ImageUrl="utu_11.png"/>
+      <Item ImageUrl="utu_12.png"/>
+      <Item ImageUrl="utu_13.png"/>
+      <Item ImageUrl="utu_14.png"/>
+      <Item ImageUrl="utu_15.png"/>
+    </Category>　
+
+    <Category CategoryId="C_5" CategoryName="ゆるふわ文字系">
+      <Item ImageUrl="eri_1.png"/>
+      <Item ImageUrl="eri_2.png"/>
+      <Item ImageUrl="eri_3.png"/>
+      <Item ImageUrl="eri_4.png"/>
+      <Item ImageUrl="eri_5.png"/>
+      <Item ImageUrl="eri_6.png"/>
+      <Item ImageUrl="eri_7.png"/>
+      <Item ImageUrl="eri_8.png"/>
+      <Item ImageUrl="eri_9.png"/><Item ImageUrl="eri_10.png"/><Item ImageUrl="eri_11.png"/><Item ImageUrl="eri_12.png"/><Item ImageUrl="eri_13.png"/><Item ImageUrl="eri_14.png"/><Item ImageUrl="eri_15.png"/>>
+    </Category>
+
+    　 <Category CategoryId="C_6" CategoryName="楷書体系">
+      <Item ImageUrl="kaiti_1.png"/>
+      <Item ImageUrl="kaiti_2.png"/>
+      <Item ImageUrl="kaiti_3.png"/>
+      <Item ImageUrl="kaiti_4.png"/>
+      <Item ImageUrl="kaiti_5.png"/>
+      <Item ImageUrl="kaiti_6.png"/>
+      <Item ImageUrl="kaiti_7.png"/>
+      <Item ImageUrl="kaiti_8.png"/>
+      <Item ImageUrl="kaiti_9.png"/>
+      <Item ImageUrl="kaiti_10.png"/>
+      <Item ImageUrl="kaiti_11.png"/>
+      <Item ImageUrl="kaiti_12.png"/>
+      <Item ImageUrl="kaiti_13.png"/>
+      <Item ImageUrl="kaiti_14.png"/>
+      <Item ImageUrl="kaiti_15.png"/>
+    </Category>
+  </Categories>
+
+
+  <Questions>
+    <Question>
+      <QuestionName>性別</QuestionName>
+      <QuestionText>性別は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>男性</QuestionChoiceText>
+        <QuestionChoiceText>女性</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+    <Question>
+      <QuestionName>年齢</QuestionName>
+      <QuestionText>年齢は</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>10代歳</QuestionChoiceText>
+        <QuestionChoiceText>20～23歳</QuestionChoiceText>
+        <QuestionChoiceText>24歳～29歳</QuestionChoiceText>
+        <QuestionChoiceText>30代</QuestionChoiceText>
+        <QuestionChoiceText>40代</QuestionChoiceText>
+        <QuestionChoiceText>50歳～</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+
+    <Question>
+      <QuestionName>フォントのこだわり</QuestionName>
+      <QuestionText>フォントにこだわりはありますか？</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>ある</QuestionChoiceText>
+        <QuestionChoiceText>ない</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+
+
+    <Question>
+      <QuestionName>小説について</QuestionName>
+      <QuestionText>小説にエロスを感じた事がありますか？</QuestionText>
+      <QuestionChoices>
+        <QuestionChoiceText>ある</QuestionChoiceText>
+        <QuestionChoiceText>ない</QuestionChoiceText>
+      </QuestionChoices>
+    </Question>
+
+
+  </Questions>
+</Research>

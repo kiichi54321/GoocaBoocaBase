@@ -56,7 +56,7 @@ namespace GoocaBoocaDataModels.Utility
                     QuestionLine ql = new QuestionLine()
                     {
                         Key = "i_" + item.ItemId.ToString(),
-                        Text = item.Category.ItemCategoryName + ":" + item.ItemName+"{"+research.Tag+ item.ItemName +"}",
+                        Text = item.Category.ItemCategoryName + ":" + item.ItemName + "{" + research.Tag + item.ItemName + "}",
                         Type = "数値"
                     };
                     list.Add(ql);
@@ -87,7 +87,9 @@ namespace GoocaBoocaDataModels.Utility
                     {
                         Key = "attribute_" + item.Key + "_" + item2,
                         Text = "属性:" + item.Key + "_" + item2,
-                        Type = "数値"
+                        Type = "数値",
+                        AnswerNumericList = new List<double>() { 0, 0.25, 0.5, 0.75, 1 }
+
                     };
                     list.Add(ql);
                 }
@@ -117,7 +119,7 @@ namespace GoocaBoocaDataModels.Utility
                 {
                     tsvBuilder.Add("q_" + item.Question.QuestionId, item.FreeTest);
                 }
-                foreach (var item in user.ItemAnswer.GroupBy(n => n.Item.Category).Select(n => new { n.Key, Count = n.Where(m => m.ItemAnswerChoice.Tag == "Key").Count() }))
+                foreach (var item in user.ItemAnswer.GroupBy(n => n.Item.Category).Select(n => new { n.Key, Count = n.Where(m => m.ItemAnswerChoice.Tag == "Key").Select(m=>m.Item).Distinct().Count() }))
                 {
                     tsvBuilder.Add("c_" + item.Key.ItemCategoryId, item.Count);
                 }
@@ -128,29 +130,48 @@ namespace GoocaBoocaDataModels.Utility
                         tsvBuilder.Add("i_" + item.Item.ItemId, 1);
                     }
                 }
-                Dictionary<string, int> countDic = new Dictionary<string, int>();
-                foreach (var item in user.ItemAnswer.Where(n => n.ItemAnswerChoice.Tag == "Key"))
+                Dictionary<string, attributeCount> countDic = new Dictionary<string, attributeCount>();
+                foreach (var item in user.ItemAnswer)
                 {
+                    bool flag = false;
+                    if (item.ItemAnswerChoice.Tag == "Key")
+                    {
+                        flag = true;
+                    }
                     foreach (var attribute in item.Item.ItemAttribute)
                     {
                         var key = attribute.AttributeName + "_" + attribute.Value;
                         if (countDic.ContainsKey(key))
                         {
-                            countDic[key]++;
+                            countDic[key].AllCount++;
                         }
                         else
                         {
-                            countDic.Add(key, 1);
+                            countDic.Add(key, new attributeCount() { AllCount = 1, Group = attribute.AttributeName, Value = attribute.Value });
                         }
+                        if (flag)
+                        {
+                            countDic[key].Count++;
+                        }
+
                     }
                 }
                 foreach (var item in countDic)
                 {
-                    tsvBuilder.Add("attribute_" + item.Key, item.Value);
+                    tsvBuilder.Add("attribute_" + item.Key, (item.Value.Rate).ToString());
                 }
                 tsvBuilder.NextLine();
             }
             return tsvBuilder.ToString();
+        }
+
+        class attributeCount
+        {
+            public string Group { get; set; }
+            public string Value { get; set; }
+            public int AllCount { get; set; }
+            public int Count { get; set; }
+            public double Rate { get { return Count / (double)AllCount; } }
         }
 
         public class QuestionLine
@@ -159,6 +180,7 @@ namespace GoocaBoocaDataModels.Utility
             public string Text { get; set; }
             public string Type { get; set; }
             public Dictionary<string, string> AnswerDic { get; set; }
+            public List<double> AnswerNumericList { get; set; }
 
             public void AddAnswer(string key, string val)
             {
@@ -183,6 +205,13 @@ namespace GoocaBoocaDataModels.Utility
                     foreach (var item in AnswerDic)
                     {
                         sb.Append(item.Key + ":" + item.Value + ",");
+                    }
+                }
+                if (AnswerNumericList != null)
+                {
+                    foreach (var item in AnswerNumericList)
+                    {
+                        sb.Append(item + ",");
                     }
                 }
                 return sb.ToString();

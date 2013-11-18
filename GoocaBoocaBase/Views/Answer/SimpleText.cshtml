@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = null;
+}
+@using GoocaBoocaBase.Helpers
+@model IEnumerable<GoocaBoocaDataModels.ItemAnswerChoice>
+
+<!--
+<script type="text/javascript" src="http://blog-imgs-48.fc2.com/j/q/u/jqueryintro/jQueryRotate22.js"></script> 
+
+<script type="text/javascript">
+    $(function () {
+        var i = 0;
+        setInterval(function () {
+            i += 1;
+            $("#hoge").rotate(i);
+        }, 1)
+    });
+</script>　-->
+
+<div>
+<img src="@ViewBag.ImageUrl" alt="MainImage" />
+</div>
+<div >
+<h2>@ViewBag.TextTitle</h2>
+<ul id="answerChoice" style="margin-left:auto;margin-right:auto;">
+@foreach (var item in Model)
+{
+    <li>
+    @Html.ActionLink(item.AnswerString, "SimpleText", new { research_id = ViewBag.research_id, uid = ViewBag.uid, image_id = ViewBag.item_id, answer_id = item.ItemAnswerChoiceId }, new { @class = "linkbuntton" })
+    </li>
+}
+</ul>
+<h3>@ViewBag.SubTitle</h3>
+<p>@Html.Raw(ViewBag.Text)
+</p>
+<p>回答数： @ViewBag.answerCount / @ViewBag.MaxCount</p>
+
+</div>
+<p> @ViewBag.Message</p>

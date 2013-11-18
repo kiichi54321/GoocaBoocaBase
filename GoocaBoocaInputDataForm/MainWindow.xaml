@@ -55,6 +55,8 @@
             <TabItem Header="tabItem4" Name="tabItem4">
                 <Grid>
                     <Button Content="XML入力" Height="23" HorizontalAlignment="Left" Margin="7,6,0,0" Name="button10" VerticalAlignment="Top" Width="258" Click="button10_Click_1" />
+                    <Button Content="画像の置換" Height="23" HorizontalAlignment="Left" Margin="18,96,0,0" Name="button12" VerticalAlignment="Top" Width="75" Click="button12_Click" />
+                    <TextBox Height="108" HorizontalAlignment="Left" Margin="30,140,0,0" Name="textBox7" VerticalAlignment="Top" Width="456" />
                 </Grid>
             </TabItem>
             <TabItem Header="tabItem5" Name="tabItem5">

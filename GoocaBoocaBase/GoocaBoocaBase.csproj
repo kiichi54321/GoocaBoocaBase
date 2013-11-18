@@ -147,6 +147,7 @@
     <Compile Include="MyLib\WardMethod.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MyLib\Web.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -275,6 +277,9 @@
   <ItemGroup>
     <Content Include="Views\Data\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Answer\SimpleText.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -292,7 +297,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55192</DevelopmentServerPort>
+          <DevelopmentServerPort>60684</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

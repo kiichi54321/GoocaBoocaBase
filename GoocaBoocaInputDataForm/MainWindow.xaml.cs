@@ -465,6 +465,18 @@ namespace GoocaBoocaInputDataForm
 
         }
 
+        private void button12_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+            ofd.DefaultExt = ".xml";
+            if (ofd.ShowDialog() == true)
+            {
+                XMLInport xmlInport = new XMLInport();
+                textBox7.Text = XMLInport.RenameImage(ofd.FileName);
+                MessageBox.Show("完了");
+            }
+        }
+
 
     }
 }

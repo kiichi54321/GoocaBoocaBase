@@ -41,6 +41,10 @@ namespace GoocaBoocaBase.Controllers
                 {
                     return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
                 }
+                else if (research.ResearchType == "GoocaBoocaText")
+                {
+                    return RedirectToAction("SimpleText", new { research_id = research_id, uid = uid });
+                }
             }
             return RedirectToAction("Simple", new { research_id = research_id, uid = uid });
 
@@ -116,6 +120,66 @@ namespace GoocaBoocaBase.Controllers
                 return View();
             }
         }
+
+        public ActionResult SimpleText(string research_id, string image_id, string answer_id, string uid)
+        {
+            if (CheckReferrer() == false) return RedirectToAction("Index", "Home");
+
+            if (uid == null || research_id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.research_id = research_id;
+                ViewBag.uid = uid;
+            }
+            GoocaBoocaDataModels.GoocaBoocaDataBase db = new GoocaBoocaDataModels.GoocaBoocaDataBase();
+            var research = db.GetResearch(research_id);
+            ViewBag.Title = research.ResearchName;
+            if (research.ResearchType == "GoocaBoocaText")
+            {
+                if (image_id != null && answer_id != null)
+                {
+                    db.InsertItemAnswer(research_id, image_id, uid, answer_id, this.Request.UserHostAddress);
+                }
+                ViewBag.Description = research.Description.Replace("\n", "<br>");
+                ViewBag.QuestionText = research.QuestionText.Replace("\n", "<br>");
+
+
+                var data = db.GetNextImageId(research_id, uid, this.Request.UserHostAddress);
+
+                if (data.Success)
+                {
+                    ViewBag.item_id = data.ImageId;
+                    ViewBag.ImageUrl = data.ImageUrl;
+                    ViewBag.answerCount = data.AnswerCount;
+                    ViewBag.TextTitle = db.ItemAttributes.Where(n => n.Item.ItemId == data.Item.ItemId && n.AttributeName == "Title").FirstOrDefault().Value;
+
+                    var subTitle=  MyLib.Web.GetTagContent(data.Item.Tag, "[[", "]]");
+                    ViewBag.SubTitle = subTitle;
+                    ViewBag.Text = data.Item.Tag.Replace("[[" + subTitle + "]]", string.Empty);
+                    //                    ViewBag.Message = data.Message;
+                    ViewBag.MaxCount = research.AnswerCount;
+                }
+                else
+                {
+                    return RedirectToAction("SimpleQuestion", new { research_id = research_id, uid = uid });
+                }
+
+
+                return View(db.ItemAnswerChoice.Where(n => n.Research.ResearchId == research.ResearchId).ToArray());
+            }
+            else if (research.ResearchType == GoocaBoocaDataModels.ResearchType.Compare.ToString())
+            {
+                return RedirectToAction("SimpleCompare", new { research_id = research_id, uid = uid });
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
         public ActionResult SimpleCompare(string research_id, string selected_image_id, string noSelected_image_id, string uid)
         {

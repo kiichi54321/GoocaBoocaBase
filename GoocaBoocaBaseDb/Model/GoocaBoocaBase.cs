@@ -165,11 +165,21 @@ namespace GoocaBoocaDataModels
 
             if (diff.Any())
             {
-                var a = diff.Where(n => list.Contains(n.Category.ItemCategoryId) == false).OrderBy(n => Guid.NewGuid()).First();
-                data.ImageId = a.ItemId;
-                data.ImageUrl = research.Tag + a.ItemName;
-                data.Success = true;
-                return data;
+                var aa = diff.Where(n => list.Contains(n.Category.ItemCategoryId) == false).OrderBy(n => Guid.NewGuid());
+                if (aa.Any())
+                {
+                    var a = aa.First();
+                    data.ImageId = a.ItemId;
+                    data.ImageUrl = research.Tag + a.ItemName;
+                    data.Item = a;
+                    data.Success = true;
+                    return data;
+                }
+                else
+                {
+                    data.Success = false;
+                    return data;
+                }
             }
             else
             {
@@ -183,6 +193,7 @@ namespace GoocaBoocaDataModels
             public int ImageId { get; set; }
             public string ImageUrl { get; set; }
             public int AnswerCount { get; set; }
+            public Item Item { get; set; }
             public bool Success { get; set; }
             public string Message { get; set; }
         }
@@ -598,7 +609,7 @@ namespace GoocaBoocaDataModels
         {
             return ConverMuitiRelation(source, minValue, true);
         }
-        public static IEnumerable<Tuple<List<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source, double minValue,bool distinct)
+        public static IEnumerable<Tuple<List<string>, double>> ConverMuitiRelation(IEnumerable<Tuple<string, string, double>> source, double minValue, bool distinct)
         {
             //最小値よりも大きいペア集合
             var data = source.Where(n => n.Item3 >= minValue);
